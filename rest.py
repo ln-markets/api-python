@@ -1,10 +1,9 @@
 import datetime
 import requests
-from hashlib import sha256
+import hashlib
 import hmac
 import base64
-import urllib.parse as urlparse
-from urllib.parse import urlencode
+import urllib.parse
 import json
 
 class LNM_REST_API():
@@ -31,10 +30,10 @@ class LNM_REST_API():
         path = '/v1' + path
         
         if ((method == 'GET') | (method == 'DELETE')):
-            url_parts = list(urlparse.urlparse(url2))
-            query = dict(urlparse.parse_qsl(url_parts[4]))
+            url_parts = list(urllib.parse.urlparse(url2))
+            query = dict(urllib.parse.parse_qsl(url_parts[4]))
             query.update(params)
-            url_parts[4] = urlencode(query)
+            url_parts[4] = urllib.parse.urlencode(query)
             data = url_parts[4]
 
         elif ((method == 'POST') | (method == 'PUT')):
@@ -42,7 +41,7 @@ class LNM_REST_API():
 
         payload = timestamp + method + path + data
 
-        hashed = hmac.new(bytes(self.api_secret, 'utf-8'), bytes(payload, 'utf-8'), sha256).digest()
+        hashed = hmac.new(bytes(self.api_secret, 'utf-8'), bytes(payload, 'utf-8'), hashlib.sha256).digest()
         signature = base64.b64encode(hashed)
 
         headers = {
@@ -54,7 +53,7 @@ class LNM_REST_API():
         }
 
         if ((method == 'GET') | (method == 'DELETE')):
-            response = requests.request(method = method, url = urlparse.urlunparse(url_parts), headers=headers)
+            response = requests.request(method = method, url = urllib.parse.urlunparse(url_parts), headers=headers)
             
         elif ((method == 'POST') | (method == 'PUT')):
             response = requests.request(method = method, url = url2, data = data, headers=headers)
