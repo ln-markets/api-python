@@ -67,7 +67,7 @@ lnm.set_url(url = 'https://api.lnmarkets.com/v1')
 
 Open a new position on the market.
 
-```yaml
+```
 type:
   type: String
   required: true
@@ -105,8 +105,8 @@ price:
 
 Example:
 
-```JS
-  await lnm.futuresNewPosition({
+```
+  lnm.futuresNewPosition({
     type: 'm',
     side: 's',
     margin: 10000,
@@ -120,7 +120,7 @@ Example:
 
 Retrieve all or a part of user positions.
 
-```yaml
+```
 type:
   type: String
   required: true
@@ -143,8 +143,8 @@ limit:
 
 Example:
 
-```JS
-  await lnm.futuresGetPositions({
+```
+lnm.futuresGetPositions({
     type: 'running'
   })
 ```
@@ -155,7 +155,7 @@ Example:
 
 Modify stoploss or takeprofit parameter of an existing position.
 
-```yaml
+```
 pid:
   type: String
   required: true
@@ -172,8 +172,8 @@ value:
 
 Example:
 
-```JS
-  await lnm.futuresUpdatePosition({
+```
+lnm.futuresUpdatePosition({
     pid: 'b87eef8a-52ab-2fea-1adc-c41fba870b0f',
     type: 'stoploss',
     value: 13290.5
@@ -186,7 +186,7 @@ Example:
 
 Add more margin to an existing position.
 
-```yaml
+```
 amount:
   type: Integer
   required: true
@@ -197,8 +197,8 @@ pid:
 
 Example:
 
-```JS
-  await lnm.addMargin({
+```
+lnm.addMargin({
     amount: 20000,
     pid: '249dc818-f8a5-4713-a3a3-8fe85f2e8969'
   })
@@ -210,14 +210,14 @@ Example:
 
 Cancel all oponed (not running) positions for this user.
 
-```yaml
+```
 # No parameters
 ```
 
 Example:
 
-```JS
-  await lnm.futuresCancelAllPositions()
+```
+lnm.futuresCancelAllPositions()
 ```
 
 [`DELETE /futures/all/cancel`](https://docs.lnmarkets.com/api/v1/#cancel-all) documentation for more details.
@@ -226,7 +226,7 @@ Example:
 
 Cancel a particular position for this user.
 
-```yaml
+```
 pid:
   type: String
   required: true
@@ -234,8 +234,8 @@ pid:
 
 Example:
 
-```JS
-  await lnm.futuresCancelPosition({
+```
+lnm.futuresCancelPosition({
     pid: 'b87eef8a-52ab-2fea-1adc-c41fba870b0f'
   })
 ```
@@ -246,7 +246,7 @@ Example:
 
 Retrieve a part of the general PL of a running position.
 
-```yaml
+```
 amount:
   type: Integer
   required: true
@@ -257,8 +257,8 @@ pid:
 
 Example:
 
-```JS
-  await lnm.futuresCashinPosition({
+```
+lnm.futuresCashinPosition({
     amount: 1000,
     pid: "99c470e1-2e03-4486-a37f-1255e08178b1"
   })
@@ -270,14 +270,14 @@ Example:
 
 Close all running position for this user.
 
-```yaml
+```
 # No parameters
 ```
 
 Example:
 
-```JS
-  await lnm.futuresCloseAllPosisitions()
+```
+lnm.futuresCloseAllPosisitions()
 ```
 
 [`DELETE /futures/all/close`](https://docs.lnmarkets.com/api/v1/#cancel) documentation for more details.
@@ -286,7 +286,7 @@ Example:
 
 Close a particular running position for this user.
 
-```yaml
+```
 pid:
   type: String
   required: true
@@ -294,8 +294,8 @@ pid:
 
 Example:
 
-```JS
-  await lnm.futuresClosePosition({
+```
+lnm.futuresClosePosition({
     pid: 'a2ca6172-1078-463d-ae3f-8733f36a9b0e'
   })
 ```
@@ -306,7 +306,7 @@ Example:
 
 Get index history data.
 
-```yaml
+```
 from:
   type: Integer
   required: false
@@ -323,8 +323,8 @@ limit:
 
 Example:
 
-```JS
-  await lnm.futuresIndexHistory({
+```
+lnm.futuresIndexHistory({
     limit: 20
   })
 ```
@@ -335,7 +335,7 @@ Example:
 
 Get bid and offer data over time.
 
-```yaml
+```
 from:
   type: Integer
   required: false
@@ -351,8 +351,8 @@ limit: Integer
 
 Example:
 
-```JS
-  await lnm.futuresBidOfferHistory({
+```
+lnm.futuresBidOfferHistory({
     limit: 20
   })
 ```
@@ -363,7 +363,7 @@ Example:
 
 Get fixing data history.
 
-```yaml
+```
 from:
   type: Integer
   required: false
@@ -380,8 +380,8 @@ limit:
 
 Example:
 
-```JS
-  await lnm.futuresFixingHistory({
+```
+lnm.futuresFixingHistory({
     limit: 20
   })
 ```
@@ -392,7 +392,7 @@ Example:
 
 Get carry-fees history.
 
-```yaml
+```
 from:
   type: Integer
   required: false
@@ -409,8 +409,8 @@ limit:
 
 Example:
 
-```JS
-  await lnm.futuresCarryFeesHistory({
+```
+lnm.futuresCarryFeesHistory({
     limit: 20
   })
 ```
@@ -421,7 +421,7 @@ Example:
 
 Add funds to your LN Markets balance.
 
-```yaml
+```
 amount:
   type: Integer
   required: true
@@ -433,8 +433,8 @@ unit:
 
 Example:
 
-```JS
-  await lnm.deposit({
+```
+lnm.deposit({
     amount: 25000
   })
 ```
@@ -445,7 +445,7 @@ Example:
 
 Retrieve deposit history for this user.
 
-```yaml
+```
 from:
   type: Integer
   required: false
@@ -461,8 +461,8 @@ limit:
 
 Example:
 
-```JS
-  await lnm.depositHistory({
+```
+lnm.depositHistory({
     limit: 30
   })
 ```
@@ -473,14 +473,14 @@ Example:
 
 Retrieve announcements made by LN Markets.
 
-```yaml
+```
 # No parameters
 ```
 
 Example:
 
-```JS
-  await lnm.getAnnouncements()
+```
+lnm.getAnnouncements()
 ```
 
 [`GET /state/announcemenets`](https://docs.lnmarkets.com/api/v1/#get-the-ln-markets-announcements) documentation for more details.
@@ -489,14 +489,14 @@ Example:
 
 Queries the 10 users with the biggest positive PL.
 
-```yaml
+```
 # No parameters
 ```
 
 Example:
 
-```JS
-  await lnm.getLeaderboard()
+```
+lnm.getLeaderboard()
 ```
 
 [`GET /futures/leaderboard`](https://docs.lnmarkets.com/api/v1/#leaderboard) documentation for more details.
@@ -505,14 +505,14 @@ Example:
 
 Retrieve user informations.
 
-```yaml
+```
 # No parameters
 ```
 
 Example:
 
-```JS
-  await lnm.getUser()
+```
+lnm.getUser()
 ```
 
 [`GET /user`](https://docs.lnmarkets.com/api/v1/#informations) documentation for more details.
@@ -521,14 +521,14 @@ Example:
 
 Retrieve informations related to LN Markets lnm.
 
-```yaml
+```
 # No parameters
 ```
 
 Example:
 
-```JS
-  await lnm.apiState()
+```
+lnm.apiState()
 ```
 
 [`GET /state`](https://docs.lnmarkets.com/api/v1/#api-informations) documentation for more details.
@@ -537,14 +537,14 @@ Example:
 
 Show informations about LN Markets lightning node.
 
-```yaml
+```
 # No parameters
 ```
 
 Example:
 
-```JS
-  await lnm.nodeState()
+```
+lnm.nodeState()
 ```
 
 [`GET /state/node`](https://docs.lnmarkets.com/api/v1/#node-informations) documentation for more details.
@@ -553,7 +553,7 @@ Example:
 
 Modify user account parameters.
 
-```yaml
+```
 show_leaderboard:
   type: Boolean
   required: false
@@ -577,8 +577,8 @@ resend_email:
 
 Example:
 
-```JS
-  await lnm.updateUser({
+```
+lnm.updateUser({
     show_username: true,
     show_leaderboard: true,
     username: 'API-Connector',
@@ -591,7 +591,7 @@ Example:
 
 Move funds from LN Markets to your wallet via BOLT11 invoice.
 
-```yaml
+```
 amount:
   type: Integer
   required: true
@@ -608,8 +608,8 @@ invoice:
 
 Example:
 
-```JS
-  await lnm.withdraw({
+```
+lnm.withdraw({
     amount: 1000,
     invoice: 'lntb100u1p0jr0ykpp5ldx3un8ym6z0uwjxd083mp2rcr04d2dv0fkx729ajs62pq9pfjqqdql23jhxapdwa5hg6rywfshwttjda6hgegcqzpgxq92fjuqsp5m6q0fzynu2qr624mzjc285duurhccmkfg94mcdctc0p9s7qkrq8q9qy9qsqp862cjznpey5r76e7amhlpmhwn2c7xvke59srhv0xf75m4ksjm4hzn8y9xy0zs5ec6gxmsr8gj4q23w8ped32llscjcneyjz2afeapqpu4gamz'
   })
@@ -621,7 +621,7 @@ Example:
 
 Retrieve user withdraw history.
 
-```yaml
+```
 from:
   type: Integer
   required: false
@@ -637,47 +637,10 @@ limit:
 
 Example:
 
-```JS
-  await lnm.withdrawHistory({
+```
+lnm.withdrawHistory({
     limit: 25
   })
 ```
 
 [`GET /user/withdraw`](https://docs.lnmarkets.com/api/v1/#withdraw) documentation for more details.
-
-#### requestAPI
-
-This method is used in case where no wrapper is (yet) available for a particular endpoint.
-
-```yaml
-method:
-  type: String
-  required: true
-  enum: ['GET', 'PUT', 'POST', 'DELETE']
-
-path:
-  type: String
-  required: true
-
-params:
-  type: Object
-  required: false
-
-credentials:
-  type: Boolean
-  required: false
-  default: false
-```
-
-Example:
-
-```JS
-  await lnm.requestAPI({
-    method: 'GET',
-    path: '/user',
-    credentials: true
-  })
-```
-
-
-### Methods
