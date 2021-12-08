@@ -158,13 +158,13 @@ class LNM_REST_API():
 
     def apiState(self):
         method = 'GET'
-        path = '/state'
+        path = '/app'
         params = {}
         return self.request_lnm(method, path, params)
 
     def nodeState(self):
         method = 'GET'
-        path = '/state/node'
+        path = '/app/node'
         params = {}
         return self.request_lnm(method, path, params)
 
@@ -176,7 +176,7 @@ class LNM_REST_API():
 
     def getAnnouncements(self):
         method = 'GET'
-        path = '/state/announcements'
+        path = '/app/announcements'
         params = {}
         return self.request_lnm(method, path, params)
 
