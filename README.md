@@ -26,48 +26,45 @@ Without you will not bet able to authenticate
 
 ## Configuration
 
-Use the LNM_REST_API() to enter your authentication keys and set the API url: 
+Use the LNMarketsRest and your key / passphrase to instanciate a new api connector: 
 
-lnm = LNM_REST_API()
+```python
+lnm = LNMarketsRest(key="yourKey", secret="yourSecret", passphrase="yourPassphrase")
 
-lnm.set_auth(api_key='copy your api key here',
-            api_secret='copy your api secret here',
-            passphrase='copy your passphrase here')
-
-lnm.set_url(url = 'https://api.lnmarkets.com/v1')
-
+lnm.get_user()
+```
 ## REST API
 
-- [`futuresNewPosition`](#futuresNewPosition)
-- [`futuresGetPositions`](#futuresGetPositions)
-- [`futuresUpdatePosition`](#futuresUpdatePosition)
-- [`futuresAddMarginPosition`](#futuresAddMarginPosition)
-- [`futuresCancelAllPositions`](#futuresCancelAllPositions)
-- [`futuresCancelPosition`](#futuresCancelPosition)
-- [`futuresCashinPosition`](#futuresCashinPosition)
-- [`futuresCloseAllPosisitions`](#futuresCloseAllPosisitions)
-- [`futuresClosePosition`](#futuresClosePosition)
-- [`futuresIndexHistory`](#futuresIndexHistory)
-- [`futuresBidOfferHistory`](#futuresBidOfferHistory)
-- [`futuresFixingHistory`](#futuresFixingHistory)
-- [`futuresCarryFeesHistory`](#futuresCarryFeesHistory)
+- [`futures_new_position`](#futures_new_position)
+- [`futures_get_positions`](#futures_get_positions)
+- [`futures_update_position`](#futures_update_position)
+- [`futures_add_margin_position`](#futures_add_margin_position)
+- [`futures_cancel_all_positions`](#futures_cancel_all_positions)
+- [`futures_cancel_position`](#futures_cancel_position)
+- [`futures_cashin_position`](#futures_cashin_position)
+- [`futures_close_all_positions`](#futures_close_all_positions)
+- [`futures_close_position`](#futures_close_position)
+- [`futures_index_history`](#futures_index_history)
+- [`futures_bid_offer_history`](#futures_bid_offer_history)
+- [`futures_fixing_history`](#futures_fixing_history)
+- [`futures_carry_fees_history`](#futures_carry_fees_history)
 - [`deposit`](#deposit)
-- [`depositHistory`](#depositHistory)
-- [`futuresHistory`](#futuresHistory)
-- [`getAnnouncements`](#getAnnouncements)
-- [`getLeaderboard`](#getLeaderboard)
-- [`getUser`](#getUser)
-- [`apiState`](#apiState)
-- [`nodeState`](#nodeState)
-- [`updateUser`](#updateUser)
+- [`deposit_history`](#deposit_history)
+- [`futures_history`](#futures_history)
+- [`get_announcements`](#get_announcements)
+- [`get_leaderboard`](#get_leaderboard)
+- [`get_user`](#get_user)
+- [`api_state`](#api_state)
+- [`node_state`](#node_state)
+- [`update_user`](#update_user)
 - [`withdraw`](#withdraw)
-- [`withdrawHistory`](#withdrawHistory)
+- [`withdraw_history`](#withdraw_history)
 
-#### futuresNewPosition
+### futures_new_position
 
 Open a new position on the market.
 
-```
+```yml
 type:
   type: String
   required: true
@@ -105,22 +102,22 @@ price:
 
 Example:
 
-```
-  lnm.futuresNewPosition({
-    type: 'm',
-    side: 's',
-    margin: 10000,
-    leverage: 25.5,
+```python
+  lnm.futures_new_position({
+    'type': 'm',
+    'side': 's',
+    'margin': 10000,
+    'leverage': 25.5,
   })
 ```
 
 [`POST /futures`](https://docs.lnmarkets.com/api/v1/#create) documentation for more details.
 
-#### futuresGetPositions
+### futures_get_positions
 
 Retrieve all or a part of user positions.
 
-```
+```yml
 type:
   type: String
   required: true
@@ -143,19 +140,19 @@ limit:
 
 Example:
 
-```
-lnm.futuresGetPositions({
-    type: 'running'
+```python
+lnm.futures_get_positions({
+    'type': 'running'
   })
 ```
 
 [`GET /futures`](https://docs.lnmarkets.com/api/v1/#history) documentation for more details.
 
-#### futuresUpdatePosition
+### futures_update_position
 
 Modify stoploss or takeprofit parameter of an existing position.
 
-```
+```yml
 pid:
   type: String
   required: true
@@ -172,21 +169,21 @@ value:
 
 Example:
 
-```
-lnm.futuresUpdatePosition({
-    pid: 'b87eef8a-52ab-2fea-1adc-c41fba870b0f',
-    type: 'stoploss',
-    value: 13290.5
+```python
+lnm.futures_update_position({
+    'pid': 'b87eef8a-52ab-2fea-1adc-c41fba870b0f',
+    'type': 'stoploss',
+    'value': 13290.5
   })
 ```
 
 [`PUT /futures`](https://docs.lnmarkets.com/api/v1/#update) documentation for more details.
 
-#### addMargin
+### add_margin
 
 Add more margin to an existing position.
 
-```
+```yml
 amount:
   type: Integer
   required: true
@@ -197,16 +194,16 @@ pid:
 
 Example:
 
-```
-lnm.addMargin({
-    amount: 20000,
-    pid: '249dc818-f8a5-4713-a3a3-8fe85f2e8969'
+```python
+lnm.add_margin({
+    'amount': 20000,
+    'pid': '249dc818-f8a5-4713-a3a3-8fe85f2e8969'
   })
 ```
 
 [`POST /futures/add-margin`](https://docs.lnmarkets.com/api/v1/#add-margin) documentation for more details.
 
-#### futuresCancelAllPositions
+### futures_cancel_all_positions
 
 Cancel all oponed (not running) positions for this user.
 
@@ -216,17 +213,17 @@ Cancel all oponed (not running) positions for this user.
 
 Example:
 
-```
-lnm.futuresCancelAllPositions()
+```python
+lnm.futures_cancel_all_positions()
 ```
 
 [`DELETE /futures/all/cancel`](https://docs.lnmarkets.com/api/v1/#cancel-all) documentation for more details.
 
-#### futuresCancelPosition
+### futures_cancel_position
 
 Cancel a particular position for this user.
 
-```
+```yml
 pid:
   type: String
   required: true
@@ -234,19 +231,19 @@ pid:
 
 Example:
 
-```
-lnm.futuresCancelPosition({
-    pid: 'b87eef8a-52ab-2fea-1adc-c41fba870b0f'
+```python
+lnm.futures_cancel_position({
+    'pid': 'b87eef8a-52ab-2fea-1adc-c41fba870b0f'
   })
 ```
 
 [`POST /futures/cancel`](https://docs.lnmarkets.com/api/v1/#cancel) documentation for more details.
 
-#### futuresCashinPosition
+### futures_cashin_position
 
 Retrieve a part of the general PL of a running position.
 
-```
+```yml
 amount:
   type: Integer
   required: true
@@ -257,16 +254,16 @@ pid:
 
 Example:
 
-```
-lnm.futuresCashinPosition({
-    amount: 1000,
-    pid: "99c470e1-2e03-4486-a37f-1255e08178b1"
+```python
+lnm.futures_cashin_position({
+    'amount': 1000,
+    'pid': "99c470e1-2e03-4486-a37f-1255e08178b1"
   })
 ```
 
 [`POST /futures/cash-in`](https://docs.lnmarkets.com/api/v1/#cancel) documentation for more details.
 
-#### futuresCloseAllPosisitions
+### futures_close_all_posisitions
 
 Close all running position for this user.
 
@@ -276,17 +273,17 @@ Close all running position for this user.
 
 Example:
 
-```
-lnm.futuresCloseAllPosisitions()
+```python
+lnm.futures_close_all_positions()
 ```
 
 [`DELETE /futures/all/close`](https://docs.lnmarkets.com/api/v1/#cancel) documentation for more details.
 
-#### futuresClosePosition
+### futures_close_position
 
 Close a particular running position for this user.
 
-```
+```yml
 pid:
   type: String
   required: true
@@ -294,19 +291,19 @@ pid:
 
 Example:
 
-```
-lnm.futuresClosePosition({
-    pid: 'a2ca6172-1078-463d-ae3f-8733f36a9b0e'
+```python
+lnm.futures_close_position({
+    'pid': 'a2ca6172-1078-463d-ae3f-8733f36a9b0e'
   })
 ```
 
 [`DELETE /futures`](https://docs.lnmarkets.com/api/v1/#cancel) documentation for more details.
 
-#### futuresIndexHistory
+### futures_index_history
 
 Get index history data.
 
-```
+```yml
 from:
   type: Integer
   required: false
@@ -323,19 +320,19 @@ limit:
 
 Example:
 
-```
-lnm.futuresIndexHistory({
-    limit: 20
+```python
+lnm.futures_index_history({
+    'limit': 20
   })
 ```
 
 [`GET /futures/history/index`](https://docs.lnmarkets.com/api/v1/#futures-index-history) documentation for more details.
 
-#### futuresBidOfferHistory
+### futures_bid_offer_history
 
 Get bid and offer data over time.
 
-```
+```yml
 from:
   type: Integer
   required: false
@@ -351,19 +348,19 @@ limit: Integer
 
 Example:
 
-```
-lnm.futuresBidOfferHistory({
-    limit: 20
+```python
+lnm.futures_bid_offer_history({
+    'limit': 20
   })
 ```
 
 [`GET /futures/history/bid-offer`](https://docs.lnmarkets.com/api/v1/#futures-bid-and-offer-history) documentation for more details.
 
-#### futuresFixingHistory
+### futures_fixing_history
 
 Get fixing data history.
 
-```
+```yml
 from:
   type: Integer
   required: false
@@ -380,19 +377,19 @@ limit:
 
 Example:
 
-```
-lnm.futuresFixingHistory({
-    limit: 20
+```python
+lnm.futures_fixing_history({
+    'limit': 20
   })
 ```
 
 [`GET /futures/history/fixing`](https://docs.lnmarkets.com/api/v1/#futures-fixing-history) documentation for more details.
 
-#### futuresCarryFeesHistory
+### futures_carry_fees_history
 
 Get carry-fees history.
 
-```
+```yml
 from:
   type: Integer
   required: false
@@ -409,19 +406,19 @@ limit:
 
 Example:
 
-```
-lnm.futuresCarryFeesHistory({
-    limit: 20
+```python
+lnm.futures_carry_fees_history({
+    'limit': 20
   })
 ```
 
 [`GET /futures/carry-fees`](https://docs.lnmarkets.com/api/v1/#futures-carry-fees-history) documentation for more details.
 
-#### deposit
+### deposit
 
 Add funds to your LN Markets balance.
 
-```
+```yml
 amount:
   type: Integer
   required: true
@@ -433,19 +430,19 @@ unit:
 
 Example:
 
-```
+```python
 lnm.deposit({
-    amount: 25000
+    'amount': 25000
   })
 ```
 
 [`POST /user/deposit`](https://docs.lnmarkets.com/api/v1/#deposit) documentation for more details.
 
-#### depositHistory
+### deposit_history
 
 Retrieve deposit history for this user.
 
-```
+```yml
 from:
   type: Integer
   required: false
@@ -461,15 +458,15 @@ limit:
 
 Example:
 
-```
-lnm.depositHistory({
-    limit: 30
+```python
+lnm.deposit_history({
+    'limit': 30
   })
 ```
 
 [`GET /user/deposit`](https://docs.lnmarkets.com/api/v1/#deposit) documentation for more details.
 
-#### getAnnouncements
+### get_announcements
 
 Retrieve announcements made by LN Markets.
 
@@ -479,13 +476,13 @@ Retrieve announcements made by LN Markets.
 
 Example:
 
-```
+```python
 lnm.getAnnouncements()
 ```
 
 [`GET /state/announcemenets`](https://docs.lnmarkets.com/api/v1/#get-the-ln-markets-announcements) documentation for more details.
 
-#### getLeaderboard
+### get_leaderboard
 
 Queries the 10 users with the biggest positive PL.
 
@@ -495,13 +492,13 @@ Queries the 10 users with the biggest positive PL.
 
 Example:
 
-```
+```python
 lnm.getLeaderboard()
 ```
 
 [`GET /futures/leaderboard`](https://docs.lnmarkets.com/api/v1/#leaderboard) documentation for more details.
 
-#### getUser
+### get_user
 
 Retrieve user informations.
 
@@ -511,29 +508,13 @@ Retrieve user informations.
 
 Example:
 
-```
+```python
 lnm.getUser()
 ```
 
 [`GET /user`](https://docs.lnmarkets.com/api/v1/#informations) documentation for more details.
 
-#### apiState
-
-Retrieve informations related to LN Markets lnm.
-
-```
-# No parameters
-```
-
-Example:
-
-```
-lnm.apiState()
-```
-
-[`GET /state`](https://docs.lnmarkets.com/api/v1/#api-informations) documentation for more details.
-
-#### nodeState
+#### node_state
 
 Show informations about LN Markets lightning node.
 
@@ -543,17 +524,17 @@ Show informations about LN Markets lightning node.
 
 Example:
 
-```
-lnm.nodeState()
+```python
+lnm.node_state()
 ```
 
 [`GET /state/node`](https://docs.lnmarkets.com/api/v1/#node-informations) documentation for more details.
 
-#### updateUser
+#### update_user
 
 Modify user account parameters.
 
-```
+```yml
 show_leaderboard:
   type: Boolean
   required: false
@@ -577,21 +558,21 @@ resend_email:
 
 Example:
 
-```
+```python
 lnm.updateUser({
-    show_username: true,
-    show_leaderboard: true,
-    username: 'API-Connector',
+    'show_username': True,
+    'show_leaderboard': True,
+    'username': 'API-Connector',
   })
 ```
 
 [`PUT /user`](https://docs.lnmarkets.com/api/v1/#update-user) documentation for more details.
 
-#### withdraw
+### withdraw
 
 Move funds from LN Markets to your wallet via BOLT11 invoice.
 
-```
+```yml
 amount:
   type: Integer
   required: true
@@ -608,20 +589,20 @@ invoice:
 
 Example:
 
-```
+```python
 lnm.withdraw({
-    amount: 1000,
-    invoice: 'lntb100u1p0jr0ykpp5ldx3un8ym6z0uwjxd083mp2rcr04d2dv0fkx729ajs62pq9pfjqqdql23jhxapdwa5hg6rywfshwttjda6hgegcqzpgxq92fjuqsp5m6q0fzynu2qr624mzjc285duurhccmkfg94mcdctc0p9s7qkrq8q9qy9qsqp862cjznpey5r76e7amhlpmhwn2c7xvke59srhv0xf75m4ksjm4hzn8y9xy0zs5ec6gxmsr8gj4q23w8ped32llscjcneyjz2afeapqpu4gamz'
+    'amount': 1000,
+    'invoice': 'lntb100u1p0jr0ykpp5ldx3un8ym6z0uwjxd083mp2rcr04d2dv0fkx729ajs62pq9pfjqqdql23jhxapdwa5hg6rywfshwttjda6hgegcqzpgxq92fjuqsp5m6q0fzynu2qr624mzjc285duurhccmkfg94mcdctc0p9s7qkrq8q9qy9qsqp862cjznpey5r76e7amhlpmhwn2c7xvke59srhv0xf75m4ksjm4hzn8y9xy0zs5ec6gxmsr8gj4q23w8ped32llscjcneyjz2afeapqpu4gamz'
   })
 ```
 
 [`POST /user/withdraw`](https://docs.lnmarkets.com/api/v1/#withdraw-via-invoice) documentation for more details.
 
-#### withdrawHistory
+### withdraw_history
 
 Retrieve user withdraw history.
 
-```
+```yml
 from:
   type: Integer
   required: false
@@ -637,9 +618,9 @@ limit:
 
 Example:
 
-```
-lnm.withdrawHistory({
-    limit: 25
+```python
+lnm.withdraw_history({
+   'limit': 25
   })
 ```
 
