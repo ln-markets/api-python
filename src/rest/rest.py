@@ -76,7 +76,7 @@ class LNMarketsRest():
         ressource = options.get('ressource')
         headers = optionss.get('headers')
 
-        if method in ['GET', 'DELETE']
+        if method in ['GET', 'DELETE']:
             response = request(method, ressource, headers = headers)
         elif method in ['POST', 'PUT']:
             response = request(method, ressource, data = data, headers = headers)
