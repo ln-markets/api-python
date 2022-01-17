@@ -29,9 +29,14 @@ Without you will not bet able to authenticate
 Use the LNMarketsRest and your key / passphrase to instanciate a new api connector: 
 
 ```python
-lnm = LNMarketsRest(key="yourKey", secret="yourSecret", passphrase="yourPassphrase")
+options = {'key': 'your_api_key', 
+           'secret': 'your_api_secret', 
+           'passphrase': 'your_api_passphrase'}
+
+lnm = LNMarketsRest(**options)
 
 lnm.get_user()
+
 ```
 ## REST API
 
