@@ -482,7 +482,7 @@ Retrieve announcements made by LN Markets.
 Example:
 
 ```python
-lnm.getAnnouncements()
+lnm.get_announcements()
 ```
 
 [`GET /state/announcemenets`](https://docs.lnmarkets.com/api/v1/#get-the-ln-markets-announcements) documentation for more details.
@@ -498,7 +498,7 @@ Queries the 10 users with the biggest positive PL.
 Example:
 
 ```python
-lnm.getLeaderboard()
+lnm.get_leaderboard()
 ```
 
 [`GET /futures/leaderboard`](https://docs.lnmarkets.com/api/v1/#leaderboard) documentation for more details.
@@ -564,7 +564,7 @@ resend_email:
 Example:
 
 ```python
-lnm.updateUser({
+lnm.update_user({
     'show_username': True,
     'show_leaderboard': True,
     'username': 'API-Connector',
