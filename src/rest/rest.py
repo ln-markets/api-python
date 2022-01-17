@@ -74,7 +74,7 @@ class LNMarketsRest():
     def request_api(self, method, path, params, credentials = False):
         options = self._request_options(method, path, params, credentials)
         ressource = options.get('ressource')
-        headers = optionss.get('headers')
+        headers = options.get('headers')
 
         if method in ['GET', 'DELETE']:
             response = request(method, ressource, headers = headers)
