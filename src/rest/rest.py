@@ -34,14 +34,20 @@ class LNMarketsRest():
     
     def _request_options(self, **options):
         credentials = options.get('credentials')
-        opts = { 'headers': { 'Content-Type': 'application/json', **self.custom_headers } }
+        method = options.get('method')
+        path = options.get('path')
+        params = options.get('params')
+        opts = { 'headers': { 'Content-Type': 'application/json' } }
+  
+        if self.custom_headers:
+          opts['headers'].update(**self.custom_headers)
 
-
+        if method in ['GET', 'DELETE']:
+            data = urlencode(params)
+        elif method in ['POST', 'PUT']:
+            data = json.dumps(params, separators=(',', ':'))
+            
         if credentials and not self.skip_api_key:
-            method = options.get('method')
-            path = options.get('path')
-            params = options.get('params')
-
             if not self.key:
                 'You need an API key to use an authenticated route'
             elif not self.secret:
@@ -51,15 +57,11 @@ class LNMarketsRest():
             
             ts = str(int(datetime.now().timestamp() * 1000))
 
-            if method in ['GET', 'DELETE']:
-                data = urlencode(params)
-            elif method in ['POST', 'PUT']:
-                data = json.dumps(params, separators=(',', ':'))
-            
+                     
             payload = ts + method + '/' + self.version + path + data
-            hashed = hmac.new(bytes(self.secret), bytes(payload), hashlib.sha256).digest()
+            hashed = hmac.new(bytes(self.secret, 'utf-8'), bytes(payload, 'utf-8'), hashlib.sha256).digest()
             signature = b64encode(hashed)
-
+            
             opts['headers']['LNM-ACCESS-KEY'] = self.key
             opts['headers']['LNM-ACCESS-PASSPHRASE'] = self.passphrase
             opts['headers']['LNM-ACCESS-TIMESTAMP'] = ts
@@ -68,28 +70,34 @@ class LNMarketsRest():
 
         if method in ['GET', 'DELETE'] and params:
             opts['ressource'] += '?' + data
-
         return opts
 
     def request_api(self, method, path, params, credentials = False):
-        options = self._request_options(method, path, params, credentials)
-        ressource = options.get('ressource')
-        headers = options.get('headers')
+        options = {
+          'method': method,
+          'path': path,
+          'params': params,
+          'credentials': credentials
+        }
+
+        opts = self._request_options(**options)
+        ressource = opts.get('ressource')
+        headers = opts.get('headers')
 
         if method in ['GET', 'DELETE']:
             response = request(method, ressource, headers = headers)
         elif method in ['POST', 'PUT']:
-            response = request(method, ressource, data = data, headers = headers)
-            
+            response = request(method, ressource, data = json.dumps(params, separators=(',', ':')), headers = headers)
         return response.text
     
     def before_request_api(self, method, path, params, credentials):
         return self.request_api(method, path, params, credentials)
 
-    def futures_get_ticker(self, params):
+    def futures_get_ticker(self):
         method = 'GET'
         path = '/futures/ticker'
         credentials = False
+        params = {}
 
         return self.before_request_api(method, path, params, credentials)
 
@@ -114,10 +122,11 @@ class LNMarketsRest():
 
         return self.before_request_api(method, path, params, credentials)
 
-    def futures_close_all_positions(self, params):
+    def futures_close_all_positions(self):
         method = 'DELETE'
         path = '/futures/all/close'
         credentials = True
+        params = {}
 
         return self.before_request_api(method, path, params, credentials)
 
@@ -188,8 +197,9 @@ class LNMarketsRest():
         method = 'GET'
         path = '/user'
         credentials = True
+        params = {}
 
-        return self.before_request_api(method, path, params = {}, credentials)
+        return self.before_request_api(method, path, params, credentials)
 
     def update_user(self, params):
         method = 'PUT'
@@ -230,41 +240,45 @@ class LNMarketsRest():
         method = 'GET'
         path = '/app/configuration'
         credentials = False
+        params = {}
 
-        return self.before_request_api(method, path, params = {}, credentials)
+        return self.before_request_api(method, path, params, credentials)
 
     def app_node(self):
         method = 'GET'
         path = '/app/node'
         credentials = False
+        params = {}
 
-        return self.before_request_api(method, path, params = {}, credentials)
+        return self.before_request_api(method, path, params, credentials)
 
     def get_leaderboard(self):
         method = 'GET'
         path = '/futures/leaderboard'
         credentials = False
+        params = {}
 
-        return self.before_request_api(method, path, params = {}, credentials)
+        return self.before_request_api(method, path, params, credentials)
 
     def get_announcements(self):
         method = 'GET'
         path = '/app/announcements'
         credentials = False
+        params = {}
 
-        return self.before_request_api(method, path, params = {}, credentials)
+        return self.before_request_api(method, path, params, credentials)
 
     def get_lnurl_auth(self):
         method = 'POST'
         path = '/lnurl/auth'
         credentials = False
+        params = {}
 
-        return self.before_request_api(method, path, params = {}, credentials)
+        return self.before_request_api(method, path, params, credentials)
 
     def lnurlAuth(self, params):
         method = 'GET'
         path = '/lnurl/auth'
         credentials = False
-
+        
         return self.before_request_api(method, path, params, credentials)
-
