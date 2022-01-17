@@ -6,7 +6,7 @@ A simple way to connect your Python application to [LN Markets](https://lnmarket
 
 You can install this package with pip:
 ```
-pip install LNM_Python_API
+pip install ln-markets
 ```
 
 ## Usage
