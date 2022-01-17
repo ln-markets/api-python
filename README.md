@@ -11,7 +11,7 @@ pip install ln_markets
 
 ## Usage
 
-You can import rest class from LNM_Python_API
+You can import rest class from ln_markets
 ```
 from ln_markets import rest
 ```
