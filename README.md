@@ -6,14 +6,14 @@ A simple way to connect your Python application to [LN Markets](https://lnmarket
 
 You can install this package with pip:
 ```
-pip install ln_markets
+pip install ln-markets
 ```
 
 ## Usage
 
 You can import rest class from ln_markets
 ```
-from ln_markets import rest
+from lnmarkets import rest
 ```
 
 ## Authentication
