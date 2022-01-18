@@ -33,7 +33,7 @@ options = {'key': 'your_api_key',
            'secret': 'your_api_secret', 
            'passphrase': 'your_api_passphrase'}
 
-lnm = LNMarketsRest(**options)
+lnm = rest.LNMarketsRest(**options)
 
 lnm.futures_get_ticker()
 
