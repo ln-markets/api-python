@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 from setuptools import setup
-import os
-import re
+from pathlib import Path
 
-
-with open("README.md ", "r") as fh:
-    long_description = fh.read()
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
 
 setup(
     name='ln-markets',
