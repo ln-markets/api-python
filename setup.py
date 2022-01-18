@@ -7,7 +7,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name='ln-markets',
-    version='1.0.1',
+    version='1.0.2',
     packages=['lnmarkets'],
     description='LN Markets REST API python implementation',
     long_description=long_description,
