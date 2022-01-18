@@ -184,7 +184,7 @@ lnm.futures_update_position({
 
 [`PUT /futures`](https://docs.lnmarkets.com/api/v1/#update) documentation for more details.
 
-### add_margin
+### futures_add_margin_position
 
 Add more margin to an existing position.
 
