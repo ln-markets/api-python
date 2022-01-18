@@ -200,7 +200,7 @@ pid:
 Example:
 
 ```python
-lnm.add_margin({
+lnm.futures_add_margin_position({
     'amount': 20000,
     'pid': '249dc818-f8a5-4713-a3a3-8fe85f2e8969'
   })
