@@ -11,7 +11,7 @@ setup(
     packages=['lnmarkets'],
     description='LN Markets REST API python implementation',
     long_description=long_description,
-    long_description_content_type="text/x-rst",
+    long_description_content_type='text/markdown',
     url='https://github.com/ln-markets/api-python',
     author='Romain ROUPHAEL',
     license='MIT',
