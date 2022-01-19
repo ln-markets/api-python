@@ -11,7 +11,7 @@ pip install ln-markets
 
 ## Usage
 
-You can import rest class from ln_markets
+You can import rest class from ln_markets:
 ```
 from lnmarkets import rest
 ```
@@ -20,7 +20,7 @@ from lnmarkets import rest
 
 > For authentication you need your api **key** **secret** and **passphrase**
 
-Without you will not bet able to authenticate
+Without them you will not be able to authenticate
 
 > :warning: **Never share your API Key, Secret or Passphrase**
 
