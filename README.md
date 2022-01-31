@@ -210,7 +210,7 @@ lnm.futures_add_margin_position({
 
 ### futures_cancel_all_positions
 
-Cancel all oponed (not running) positions for this user.
+Cancel all opened (not running) positions for this user.
 
 ```
 # No parameters
