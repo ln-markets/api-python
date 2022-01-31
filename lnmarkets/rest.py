@@ -137,10 +137,11 @@ class LNMarketsRest():
 
         return self.before_request_api(method, path, params, credentials)
 
-    def futures_cancel_all_positions(self, params):
+    def futures_cancel_all_positions(self):
         method = 'DELETE'
         path = '/futures/all/cancel'
         credentials = True
+        params = {}
 
         return self.before_request_api(method, path, params, credentials)
 
