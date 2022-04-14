@@ -514,7 +514,7 @@ Retrieve user informations.
 Example:
 
 ```python
-lnm.getUser()
+lnm.get_user()
 ```
 
 [`GET /user`](https://docs.lnmarkets.com/api/v1/#informations) documentation for more details.
