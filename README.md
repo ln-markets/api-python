@@ -630,3 +630,112 @@ lnm.withdraw_history({
 ```
 
 [`GET /user/withdraw`](https://docs.lnmarkets.com/api/v1/#withdraw) documentation for more details.
+
+#### optionsGetPositions
+
+Retrieve all or a part of user options positions.
+
+```yaml
+status:
+  type: String
+  enum: ['running', 'closed']
+  default: running
+  required: true
+
+from:
+  type: Integer
+  required: false
+
+to:
+  type: Integer
+  required: false
+
+limit:
+  type: Integer
+  required: false
+```
+
+Example:
+
+```python
+  lnm.optionsGetPositions({
+    limit: 25,
+    status: 'closed'
+  })
+```
+
+[`GET /options/vanilla`](https://docs.lnmarkets.com/api/v1) documentation for more details.
+
+#### optionsNewPosition
+
+Open a new option position on the market.
+
+```yaml
+side:
+  type: String
+  enum: ['b']
+  required: true
+
+type:
+  type: String
+  enum: ['c', 'p']
+  required: true
+
+quantity:
+  type: Integer
+  required: true
+
+strike:
+  type: Integer
+  required: true
+
+settlement:
+  type: String
+  enum: ['physical', 'cash']
+  required: true
+```
+
+Example:
+
+```python
+  lnm.optionsGetPositions({
+    limit: 25,
+    status: 'closed'
+  })
+```
+
+[`POST /options/vanilla`](https://docs.lnmarkets.com/api/v1) documentation for more details.
+
+#### requestAPI
+
+This method is used in case where no wrapper is (yet) available for a particular endpoint.
+
+```yaml
+method:
+  type: String
+  required: true
+  enum: ['GET', 'PUT', 'POST', 'DELETE']
+
+path:
+  type: String
+  required: true
+
+params:
+  type: Object
+  required: false
+
+credentials:
+  type: Boolean
+  required: false
+  default: false
+```
+
+Example:
+
+```python
+  lnm.requestAPI({
+    method: 'GET',
+    path: '/user',
+    credentials: true
+  })
+```
