@@ -632,7 +632,7 @@ lnm.withdraw_history({
 
 [`GET /user/withdraw`](https://docs.lnmarkets.com/api/v1/#withdraw) documentation for more details.
 
-#### options_get_positions
+### options_get_positions
 
 Retrieve all or a part of user options positions.
 
@@ -667,7 +667,7 @@ Example:
 
 [`GET /options/vanilla`](https://docs.lnmarkets.com/api/v1) documentation for more details.
 
-#### options_new_position
+### options_new_position
 
 Open a new option position on the market.
 
@@ -707,7 +707,7 @@ Example:
 
 [`POST /options/vanilla`](https://docs.lnmarkets.com/api/v1) documentation for more details.
 
-#### requestAPI
+### requestAPI
 
 This method is used in case where no wrapper is (yet) available for a particular endpoint.
 
