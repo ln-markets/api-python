@@ -63,7 +63,8 @@ lnm.futures_get_ticker()
 - [`node_state`](#node_state)
 - [`update_user`](#update_user)
 - [`withdraw`](#withdraw)
-- [`withdraw_history`](#withdraw_history)
+- [`options_get_positions`](#options_get_positions)
+- [`options_new_position`](#options_new_position)
 
 ### futures_new_position
 
@@ -631,7 +632,7 @@ lnm.withdraw_history({
 
 [`GET /user/withdraw`](https://docs.lnmarkets.com/api/v1/#withdraw) documentation for more details.
 
-#### optionsGetPositions
+#### options_get_positions
 
 Retrieve all or a part of user options positions.
 
@@ -658,7 +659,7 @@ limit:
 Example:
 
 ```python
-  lnm.optionsGetPositions({
+  lnm.options_get_positions({
     limit: 25,
     status: 'closed'
   })
@@ -666,7 +667,7 @@ Example:
 
 [`GET /options/vanilla`](https://docs.lnmarkets.com/api/v1) documentation for more details.
 
-#### optionsNewPosition
+#### options_new_position
 
 Open a new option position on the market.
 
@@ -698,7 +699,7 @@ settlement:
 Example:
 
 ```python
-  lnm.optionsGetPositions({
+  lnm.options_new_position({
     limit: 25,
     status: 'closed'
   })
