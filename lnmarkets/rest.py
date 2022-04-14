@@ -282,3 +282,17 @@ class LNMarketsRest():
         credentials = False
         
         return self.before_request_api(method, path, params, credentials)
+    
+    def optionsGetPositions(self, params):
+        method = 'GET'
+        path: '/options/vanilla'
+        credentials = True
+        
+        return self.before_request_api(method, path, params, credentials)
+        
+    def optionsNewPosition(self, params):
+        method = 'POST'
+        path: '/options/vanilla'
+        credentials = True
+        
+        return self.before_request_api(method, path, params, credentials)
