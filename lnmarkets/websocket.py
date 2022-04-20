@@ -122,7 +122,6 @@ class LNMarketsWebsocket:
         data = self.async_loop(self.pub_api, json.dumps(self.msg))
         return data
         
-        
     def sub_options_volcurve(self):
         self.msg['method'] = 'subscribe'
         self.msg['params'] = ["options/data/volatility-curve"]
