@@ -141,11 +141,11 @@ class LNMarketsWebsocket:
         return data
 
 
-if __name__ == '__main__': 
-    key = '<your_key>' 
-    secret = '<your_secret>'
-    passphrase = '<your_passphrase>'
+# if __name__ == '__main__': 
+#     key = '<your_key>' 
+#     secret = '<your_secret>'
+#     passphrase = '<your_passphrase>'
 
-    ws_client = LNMarketsWebsocket(key = key, secret = secret, passphrase = passphrase, live=True)
+#     ws_client = LNMarketsWebsocket(key = key, secret = secret, passphrase = passphrase, live=True)
     
-    ws_client.sub_futures_bid_offer()
+#     ws_client.sub_futures_bid_offer()
