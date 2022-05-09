@@ -5,15 +5,19 @@ A simple way to connect your Python application to [LN Markets](https://lnmarket
 ## Install
 
 You can install this package with pip:
-```
-pip install ln-markets
+```shell
+pip3 install ln-markets
 ```
 
 ## Usage
 
 You can import rest class from ln_markets
-```
+```python
 from lnmarkets import rest
+```
+And the websocket one as well!
+```python
+from lnmarkets import websockets
 ```
 
 ## Authentication
@@ -24,7 +28,30 @@ Without you will not bet able to authenticate
 
 > :warning: **Never share your API Key, Secret or Passphrase**
 
-## Configuration
+## Websocket API
+
+### Configuration
+
+Use the LNMarketsWebsocket and your key / passphrase to instanciate a new api connector: 
+
+```python
+options = {'key': 'your_api_key', 
+           'secret': 'your_api_secret', 
+           'passphrase': 'your_api_passphrase'}
+
+lnm = websockets.LNMarketsWebsocket(**options)
+lnm.connect()
+```
+
+> Check [examples](examples/websocket/README.md) for more details as you'll need to extend this class most of the time.
+
+### Subscription
+
+You can subscribe to LNM Markets public event such as futures bid offer, index and options data.
+
+## REST API
+
+### Configuration
 
 Use the LNMarketsRest and your key / passphrase to instanciate a new api connector: 
 
@@ -38,7 +65,6 @@ lnm = rest.LNMarketsRest(**options)
 lnm.futures_get_ticker()
 
 ```
-## REST API
 
 - [`futures_new_position`](#futures_new_position)
 - [`futures_get_positions`](#futures_get_positions)
