@@ -5,26 +5,51 @@ A simple way to connect your Python application to [LN Markets](https://lnmarket
 ## Install
 
 You can install this package with pip:
-```
-pip install ln-markets
-```
+```shell
+pip3 install ln-markets
 
 ## Usage
 
-You can import rest class from ln_markets:
-```
+You can import rest class from ln_markets
+```python
 from lnmarkets import rest
 ```
+And the websocket one as well!
+```python
+from lnmarkets import websockets
 
 ## Authentication
 
 > For authentication you need your api **key** **secret** and **passphrase**
 
-Without them you will not be able to authenticate
+Without you will not bet able to authenticate
 
 > :warning: **Never share your API Key, Secret or Passphrase**
 
-## Configuration
+## Websocket API
+
+### Configuration
+
+Use the LNMarketsWebsocket and your key / passphrase to instanciate a new api connector: 
+
+```python
+options = {'key': 'your_api_key', 
+           'secret': 'your_api_secret', 
+           'passphrase': 'your_api_passphrase'}
+
+lnm = websockets.LNMarketsWebsocket(**options)
+lnm.connect()
+```
+
+> Check [examples](examples/websocket/README.md) for more details as you'll need to extend this class most of the time.
+
+### Subscription
+
+You can subscribe to LNM Markets public event such as futures bid offer, index and options data.
+
+## REST API
+
+### Configuration
 
 Use the LNMarketsRest and your key / passphrase to instanciate a new api connector: 
 
@@ -63,7 +88,8 @@ lnm.futures_get_ticker()
 - [`node_state`](#node_state)
 - [`update_user`](#update_user)
 - [`withdraw`](#withdraw)
-- [`withdraw_history`](#withdraw_history)
+- [`options_get_positions`](#options_get_positions)
+- [`options_new_position`](#options_new_position)
 
 ### futures_new_position
 
@@ -514,8 +540,7 @@ Retrieve user informations.
 Example:
 
 ```python
-lnm.getUser()
-```
+lnm.get_user()
 
 [`GET /user`](https://docs.lnmarkets.com/api/v1/#informations) documentation for more details.
 
@@ -630,3 +655,112 @@ lnm.withdraw_history({
 ```
 
 [`GET /user/withdraw`](https://docs.lnmarkets.com/api/v1/#withdraw) documentation for more details.
+
+### options_get_positions
+
+Retrieve all or a part of user options positions.
+
+```yaml
+status:
+  type: String
+  enum: ['running', 'closed']
+  default: running
+  required: true
+
+from:
+  type: Integer
+  required: false
+
+to:
+  type: Integer
+  required: false
+
+limit:
+  type: Integer
+  required: false
+```
+
+Example:
+
+```python
+  lnm.options_get_positions({
+    limit: 25,
+    status: 'closed'
+  })
+```
+
+[`GET /options/vanilla`](https://docs.lnmarkets.com/api/v1) documentation for more details.
+
+### options_new_position
+
+Open a new option position on the market.
+
+```yaml
+side:
+  type: String
+  enum: ['b']
+  required: true
+
+type:
+  type: String
+  enum: ['c', 'p']
+  required: true
+
+quantity:
+  type: Integer
+  required: true
+
+strike:
+  type: Integer
+  required: true
+
+settlement:
+  type: String
+  enum: ['physical', 'cash']
+  required: true
+```
+
+Example:
+
+```python
+  lnm.options_new_position({
+    limit: 25,
+    status: 'closed'
+  })
+```
+
+[`POST /options/vanilla`](https://docs.lnmarkets.com/api/v1) documentation for more details.
+
+### requestAPI
+
+This method is used in case where no wrapper is (yet) available for a particular endpoint.
+
+```yaml
+method:
+  type: String
+  required: true
+  enum: ['GET', 'PUT', 'POST', 'DELETE']
+
+path:
+  type: String
+  required: true
+
+params:
+  type: Object
+  required: false
+
+credentials:
+  type: Boolean
+  required: false
+  default: false
+```
+
+Example:
+
+```python
+  lnm.requestAPI({
+    method: 'GET',
+    path: '/user',
+    credentials: true
+  })
+```
