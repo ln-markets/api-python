@@ -286,14 +286,30 @@ class LNMarketsRest():
     
     def options_get_positions(self, params):
         method = 'GET'
-        path: '/options/vanilla'
+        path = '/options/vanilla'
         credentials = True
         
         return self.before_request_api(method, path, params, credentials)
         
     def options_new_position(self, params):
         method = 'POST'
-        path: '/options/vanilla'
+        path = '/options/vanilla'
         credentials = True
+        
+        return self.before_request_api(method, path, params, credentials)
+
+    def options_get_volatility(self):
+        method = 'GET'
+        path = '/options/volatility'
+        credentials = False
+        params = {}
+        
+        return self.before_request_api(method, path, params, credentials)
+    
+    def options_get_configuration(self):
+        method = 'GET'
+        path = '/options/instrument'
+        credentials = False
+        params = {}
         
         return self.before_request_api(method, path, params, credentials)
