@@ -7,7 +7,6 @@ A simple way to connect your Python application to [LN Markets](https://lnmarket
 You can install this package with pip:
 ```shell
 pip3 install ln-markets
-```
 
 ## Usage
 
@@ -18,7 +17,6 @@ from lnmarkets import rest
 And the websocket one as well!
 ```python
 from lnmarkets import websockets
-```
 
 ## Authentication
 
@@ -65,6 +63,7 @@ lnm = rest.LNMarketsRest(**options)
 lnm.futures_get_ticker()
 
 ```
+## REST API
 
 - [`futures_new_position`](#futures_new_position)
 - [`futures_get_positions`](#futures_get_positions)
@@ -211,7 +210,7 @@ lnm.futures_update_position({
 
 [`PUT /futures`](https://docs.lnmarkets.com/api/v1/#update) documentation for more details.
 
-### add_margin
+### futures_add_margin_position
 
 Add more margin to an existing position.
 
@@ -227,7 +226,7 @@ pid:
 Example:
 
 ```python
-lnm.add_margin({
+lnm.futures_add_margin_position({
     'amount': 20000,
     'pid': '249dc818-f8a5-4713-a3a3-8fe85f2e8969'
   })
@@ -237,7 +236,7 @@ lnm.add_margin({
 
 ### futures_cancel_all_positions
 
-Cancel all oponed (not running) positions for this user.
+Cancel all opened (not running) positions for this user.
 
 ```
 # No parameters
@@ -542,7 +541,6 @@ Example:
 
 ```python
 lnm.get_user()
-```
 
 [`GET /user`](https://docs.lnmarkets.com/api/v1/#informations) documentation for more details.
 
