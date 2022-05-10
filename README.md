@@ -90,6 +90,8 @@ lnm.futures_get_ticker()
 - [`withdraw`](#withdraw)
 - [`options_get_positions`](#options_get_positions)
 - [`options_new_position`](#options_new_position)
+- [`options_get_configuration`](#options_get_configuration)
+- [`options_get_volatility`](#options_get_volatility)
 
 ### futures_new_position
 
@@ -730,6 +732,39 @@ Example:
 ```
 
 [`POST /options/vanilla`](https://docs.lnmarkets.com/api/v1) documentation for more details.
+
+#### options_get_configuration
+
+Get the options current configuration.
+
+```yaml
+# No parameters
+```
+
+Example:
+
+```python
+  lnm.options_get_configuration()
+```
+
+[`GET /options/instrument`](https://docs.lnmarkets.com/api/v1/#operation/V1_Options_Instrument) documentation for more details.
+
+
+#### options_get_volatility
+
+Get the current volatility.
+
+```yaml
+# No parameters
+```
+
+Example:
+
+```python
+  lnm.options_get_volatility()
+```
+
+[`GET /options/volatility`](https://docs.lnmarkets.com/api/v1/#operation/V1_Options_getVolatility) documentation for more details.
 
 ### requestAPI
 
