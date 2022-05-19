@@ -26,7 +26,6 @@ setup(
         'hmac',
         'json',
         'websocket',
-        '_thread',
         'time',
         'secrets'
       ],
