@@ -7,7 +7,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name='ln-markets',
-    version='1.0.7',
+    version='1.0.8',
     packages=['lnmarkets'],
     description='LN Markets API python implementation',
     long_description=long_description,
@@ -15,7 +15,6 @@ setup(
     url='https://github.com/ln-markets/api-python',
     author='Romain ROUPHAEL',
     license='MIT',
-    author_email='',
     keywords='lnmarkets trading rest api bitcoin lightning network futures options',
     install_requires=[
         'os',
