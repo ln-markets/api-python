@@ -1,5 +1,4 @@
 import websocket
-import time
 import os
 import secrets
 import json
