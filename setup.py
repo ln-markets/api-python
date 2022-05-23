@@ -17,17 +17,8 @@ setup(
     license='MIT',
     keywords='lnmarkets trading rest api bitcoin lightning network futures options',
     install_requires=[
-        'os',
-        'urllib.parse',
-        'datetime',
-        'base64',
         'requests',
-        'hashlib',
-        'hmac',
-        'json',
-        'websocket',
-        'time',
-        'secrets'
+        'websocket'
       ],
     classifiers=[
         'Intended Audience :: Developers',
