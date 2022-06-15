@@ -18,7 +18,7 @@ setup(
     keywords='lnmarkets trading rest api bitcoin lightning network futures options',
     install_requires=[
         'requests',
-        'websocket'
+        'websocket-client'
       ],
     classifiers=[
         'Intended Audience :: Developers',
