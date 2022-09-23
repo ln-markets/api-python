@@ -190,7 +190,7 @@ class LNMarketsRest():
     def futures_carry_fees_history(self, params):
         method = 'GET'
         path = '/futures/carry-fees'
-        credentials = False
+        credentials = True
 
         return self.before_request_api(method, path, params, credentials)
 
