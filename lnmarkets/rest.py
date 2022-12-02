@@ -313,3 +313,17 @@ class LNMarketsRest():
         params = {}
         
         return self.before_request_api(method, path, params, credentials)
+    
+    def swap(self, params):
+        method = 'POST'
+        path = '/swap'
+        credentials = True
+        
+        return self.before_request_api(method, path, params, credentials)
+    
+    def swap_history(self, params):
+        method = 'GET'
+        path = '/swap'
+        credentials = True
+        
+        return self.before_request_api(method, path, params, credentials)  
