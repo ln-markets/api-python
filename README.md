@@ -92,6 +92,8 @@ lnm.futures_get_ticker()
 - [`options_new_position`](#options_new_position)
 - [`options_get_configuration`](#options_get_configuration)
 - [`options_get_volatility`](#options_get_volatility)
+- [`swap`](#swap)
+- [`swap_history`](#swap_history)
 
 ### futures_new_position
 
@@ -765,6 +767,76 @@ Example:
 ```
 
 [`GET /options/volatility`](https://docs.lnmarkets.com/api/v1/#operation/V1_Options_getVolatility) documentation for more details.
+
+
+### swap
+
+Swap betweem sats and synthetic assets
+
+```yml
+in_asset:
+  type: String
+  required: true
+  enum: ['USD', 'BTC']
+  
+out_asset:
+  type: String
+  required: true
+  enum: ['USD', 'BTC']
+
+in_amount:
+  type: Integer
+  required: False
+
+out_amount:
+  type: Integer
+  required: false
+
+```
+
+Example:
+
+```python
+  lnm.swap({
+    'in_asset': 'BTC',
+    'out_asset': 'USD',
+    'out_amount': 100
+  })
+```
+
+[`POST /swap`](https://docs.lnmarkets.com/api/v1/#tag/Swap/paths/~1swap/post) documentation for more details.
+
+### swap_history
+
+Get swap history
+
+```yml
+from:
+  type: Integer
+  required: false
+  
+to:
+  type: Integer
+  required: false
+  
+limit:
+  type: Integer
+  required: False
+
+```
+
+Example:
+
+```python
+  lnm.swap_history({
+    'from': 1669980001000,
+    'to': '1669990201000',
+    'limit': 100
+  })
+```
+
+[`GET /swap_history`](https://docs.lnmarkets.com/api/v1/#tag/Swap/paths/~1swap/get) documentation for more details.
+
 
 ### requestAPI
 
