@@ -679,48 +679,6 @@ lnm.options_get_volatility({
 
 [`GET /options/volatility`](https://docs.lnmarkets.com/api/v1/#tag/Options/paths/~1options~1volatility/get) documentation for more details.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### deposit
-
-Add funds to your LN Markets balance.
-
-```yml
-amount:
-  type: Integer
-  required: true
-unit:
-  type: String
-  required: false
-  default: 'sat'
-```
-
-Example:
-
-```python
-lnm.deposit({
-    'amount': 25000
-  })
-```
-
-[`POST /user/deposit`](https://docs.lnmarkets.com/api/v1/#deposit) documentation for more details.
-
 ### deposit_history
 
 Retrieve deposit history for this user.
@@ -749,37 +707,29 @@ lnm.deposit_history({
 
 [`GET /user/deposit`](https://docs.lnmarkets.com/api/v1/#deposit) documentation for more details.
 
-### get_announcements
+### deposit
 
-Retrieve announcements made by LN Markets.
+Add funds to your LN Markets balance.
 
-```
-# No parameters
-```
-
-Example:
-
-```python
-lnm.get_announcements()
-```
-
-[`GET /state/announcemenets`](https://docs.lnmarkets.com/api/v1/#get-the-ln-markets-announcements) documentation for more details.
-
-### get_leaderboard
-
-Queries the 10 users with the biggest positive PL.
-
-```
-# No parameters
+```yml
+amount:
+  type: Integer
+  required: true
+unit:
+  type: String
+  required: false
+  default: 'sat'
 ```
 
 Example:
 
 ```python
-lnm.get_leaderboard()
+lnm.deposit({
+    'amount': 25000
+  })
 ```
 
-[`GET /futures/leaderboard`](https://docs.lnmarkets.com/api/v1/#leaderboard) documentation for more details.
+[`POST /user/deposit`](https://docs.lnmarkets.com/api/v1/#deposit) documentation for more details.
 
 ### get_user
 
@@ -796,9 +746,46 @@ lnm.get_user()
 
 [`GET /user`](https://docs.lnmarkets.com/api/v1/#informations) documentation for more details.
 
-#### node_state
+### update_user
 
-Show informations about LN Markets lightning node.
+Modifies account parameters.
+
+```yml
+show_leaderboard:
+  type: boolean
+  required: false
+use_taproot_addresses:
+  type: boolean
+  required: false
+username:
+  type: string
+  required: false
+auto_withdraw_enabled:
+  type: boolean
+  required: false
+auto_withdraw_lightning_address:
+  type: string
+  required: false
+nostr_pubkey
+  type: string
+  required: false
+```
+
+Example:
+
+```python
+lnm.update_user({
+    'show_leaderboard': true,
+    'username': 'crypto-king',
+    'nostr_pubkey': 'bfef3e7ac61fa5450f80f346579234cbb06891e910d1a208b91bf0fd40ab3cc6'
+  })
+```
+
+[`PUT /user`](https://docs.lnmarkets.com/api/v1/#tag/User/paths/~1user/put) documentation for more details.
+
+### get_notifications
+
+Get notifications for a user
 
 ```
 # No parameters
@@ -807,48 +794,59 @@ Show informations about LN Markets lightning node.
 Example:
 
 ```python
-lnm.node_state()
+lnm.get_notifications()
 ```
 
-[`GET /state/node`](https://docs.lnmarkets.com/api/v1/#node-informations) documentation for more details.
+[`GET /user/notifications`](https://docs.lnmarkets.com/api/v1/#tag/User/paths/~1user~1notifications/get) documentation for more details.
 
-#### update_user
+### mark_notifications_read
 
-Modify user account parameters.
+Mark notification as read
 
 ```yml
-show_leaderboard:
-  type: Boolean
+ids:
+  type: 	
+  array of strings 
+  required: true
+```
+
+Example:
+
+```python
+lnm.mark_notifications_read({"ids": 
+    ['497f6eca-6276-4993-bfeb-53cbbbba6f08']
+})
+```
+
+[`PUT /user/notifications`](https://docs.lnmarkets.com/api/v1/#tag/User/paths/~1user~1notifications/put) documentation for more details.
+
+### withdraw_history
+
+Retrieve user withdraw history.
+
+```yml
+from:
+  type: Integer
   required: false
 
-show_username:
-  type: Boolean
+to:
+  type: Integer
   required: false
 
-username:
-  type: String
-  required: false
-
-email:
-  type: String
-  required: false
-
-resend_email:
-  type: Boolean
+limit:
+  type: Integer
   required: false
 ```
 
 Example:
 
 ```python
-lnm.update_user({
-    'show_username': True,
-    'show_leaderboard': True,
-    'username': 'API-Connector',
+lnm.withdraw_history({
+   'limit': 25
   })
 ```
 
-[`PUT /user`](https://docs.lnmarkets.com/api/v1/#update-user) documentation for more details.
+[`GET /user/withdraw`](https://docs.lnmarkets.com/api/v1/#withdraw) documentation for more details.
 
 ### withdraw
 
@@ -879,37 +877,6 @@ lnm.withdraw({
 ```
 
 [`POST /user/withdraw`](https://docs.lnmarkets.com/api/v1/#withdraw-via-invoice) documentation for more details.
-
-### withdraw_history
-
-Retrieve user withdraw history.
-
-```yml
-from:
-  type: Integer
-  required: false
-
-to:
-  type: Integer
-  required: false
-
-limit:
-  type: Integer
-  required: false
-```
-
-Example:
-
-```python
-lnm.withdraw_history({
-   'limit': 25
-  })
-```
-
-[`GET /user/withdraw`](https://docs.lnmarkets.com/api/v1/#withdraw) documentation for more details.
-
-
-
 
 ### swap
 
@@ -979,37 +946,83 @@ Example:
 
 [`GET /swap_history`](https://docs.lnmarkets.com/api/v1/#tag/Swap/paths/~1swap/get) documentation for more details.
 
+#### app_configuration
 
-### requestAPI
+Retrieves the configuration of LN Markets
 
-This method is used in case where no wrapper is (yet) available for a particular endpoint.
-
-```yaml
-method:
-  type: String
-  required: true
-  enum: ['GET', 'PUT', 'POST', 'DELETE']
-
-path:
-  type: String
-  required: true
-
-params:
-  type: Object
-  required: false
-
-credentials:
-  type: Boolean
-  required: false
-  default: false
+```
+# No parameters
 ```
 
 Example:
 
 ```python
-  lnm.requestAPI({
-    method: 'GET',
-    path: '/user',
-    credentials: true
+lnm.app_configuration()
+```
+
+[`GET /app/configuration`](https://docs.lnmarkets.com/api/v1/#tag/App/paths/~1app~1configuration/get) documentation for more details.
+
+#### app_node
+
+Show informations about LN Markets lightning node.
+
+```
+# No parameters
+```
+
+Example:
+
+```python
+lnm.app_node()
+```
+
+[`GET /app/node`](https://docs.lnmarkets.com/api/v1/#tag/App/paths/~1app~1node/get) documentation for more details.
+
+### get_leaderboard
+
+Queries the 10 users with the biggest positive PL.
+
+```
+# No parameters
+```
+
+Example:
+
+```python
+lnm.get_leaderboard()
+```
+
+[`GET /futures/leaderboard`](https://docs.lnmarkets.com/api/v1/#leaderboard) documentation for more details.
+
+### get_oracle
+
+Useful for oracles
+
+```yml
+from:
+  type: Integer
+  required: false
+  
+to:
+  type: Integer
+  required: false
+  
+limit:
+  type: Integer
+  required: False
+
+```
+
+Example:
+
+```python
+  lnm.get_oracle({
+    'from': 1669980001000,
+    'to': '1669990201000',
+    'limit': 100
   })
 ```
+
+[`GET /oracle/index`](https://docs.lnmarkets.com/api/v1/#tag/Oracle) documentation for more details.
+
+
