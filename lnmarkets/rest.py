@@ -253,7 +253,7 @@ class LNMarketsRest():
         
         return self.before_request_api(method, path, params, credentials)
 
-    def options_update_settlement(self, params):
+    def options_update_position(self, params):
         method = 'PUT'
         path = '/options/vanilla'
         credentials = True
