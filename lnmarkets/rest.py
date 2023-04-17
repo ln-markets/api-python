@@ -93,46 +93,12 @@ class LNMarketsRest():
     def before_request_api(self, method, path, params, credentials):
         return self.request_api(method, path, params, credentials)
 
-    def futures_get_ticker(self):
-        method = 'GET'
-        path = '/futures/ticker'
-        credentials = False
-        params = {}
-
-        return self.before_request_api(method, path, params, credentials)
-
-    def futures_new_position(self, params):
+    
+    ## Futures 
+    
+    def futures_add_margin_position(self, params):
         method = 'POST'
-        path = '/futures'
-        credentials = True
-
-        return self.before_request_api(method, path, params, credentials)
-
-    def futures_update_position(self, params):
-        method = 'PUT'
-        path = '/futures'
-        credentials = True
-
-        return self.before_request_api(method, path, params, credentials)
-
-    def futures_close_position(self, params):
-        method = 'DELETE'
-        path = '/futures'
-        credentials = True
-
-        return self.before_request_api(method, path, params, credentials)
-
-    def futures_close_all_positions(self):
-        method = 'DELETE'
-        path = '/futures/all/close'
-        credentials = True
-        params = {}
-
-        return self.before_request_api(method, path, params, credentials)
-
-    def futures_cancel_position(self, params):
-        method = 'POST'
-        path = '/futures/cancel'
+        path = '/futures/add-margin'
         credentials = True
 
         return self.before_request_api(method, path, params, credentials)
@@ -145,16 +111,39 @@ class LNMarketsRest():
 
         return self.before_request_api(method, path, params, credentials)
 
+    def futures_close_all_positions(self):
+        method = 'DELETE'
+        path = '/futures/all/close'
+        credentials = True
+        params = {}
+
+        return self.before_request_api(method, path, params, credentials)
+    
+    def futures_cancel_position(self, params):
+        method = 'POST'
+        path = '/futures/cancel'
+        credentials = True
+
+        return self.before_request_api(method, path, params, credentials)
+
+    def futures_carry_fees_history(self, params):
+        method = 'GET'
+        path = '/futures/carry-fees'
+        credentials = True
+
+        return self.before_request_api(method, path, params, credentials)
+    
+    
     def futures_cashin_position(self, params):
         method = 'POST'
         path = '/futures/cash-in'
         credentials = True
 
         return self.before_request_api(method, path, params, credentials)
-
-    def futures_add_margin_position(self, params):
-        method = 'POST'
-        path = '/futures/add-margin'
+    
+    def futures_close_position(self, params):
+        method = 'DELETE'
+        path = '/futures'
         credentials = True
 
         return self.before_request_api(method, path, params, credentials)
@@ -165,10 +154,31 @@ class LNMarketsRest():
         credentials = True
 
         return self.before_request_api(method, path, params, credentials)
+    
+    def futures_new_position(self, params):
+        method = 'POST'
+        path = '/futures'
+        credentials = True
 
+        return self.before_request_api(method, path, params, credentials)
+    
+    def futures_update_position(self, params):
+        method = 'PUT'
+        path = '/futures'
+        credentials = True
+
+        return self.before_request_api(method, path, params, credentials)
+    
     def futures_bid_offer_history(self, params):
         method = 'GET'
         path = '/futures/history/bid-offer'
+        credentials = False
+
+        return self.before_request_api(method, path, params, credentials)
+        
+    def futures_fixing_history(self, params):
+        method = 'GET'
+        path = '/futures/history/fixing'
         credentials = False
 
         return self.before_request_api(method, path, params, credentials)
@@ -179,21 +189,101 @@ class LNMarketsRest():
         credentials = False
 
         return self.before_request_api(method, path, params, credentials)
-
-    def futures_fixing_history(self, params):
+    
+    def futures_get_configuration(self):
         method = 'GET'
-        path = '/futures/history/fixing'
+        path = '/futures/instrument'
         credentials = False
+        params = {}
+
+        return self.before_request_api(method, path, params, credentials)
+    
+    def futures_get_ticker(self):
+        method = 'GET'
+        path = '/futures/ticker'
+        credentials = False
+        params = {}
 
         return self.before_request_api(method, path, params, credentials)
 
-    def futures_carry_fees_history(self, params):
+    ## Options
+
+    def options_get_expiries(self):
         method = 'GET'
-        path = '/futures/carry-fees'
+        path = '/options/instrument/expiry'
+        credentials = False
+        params = {}
+        
+        return self.before_request_api(method, path, params, credentials)    
+    
+    def options_get_configuration(self):
+        method = 'GET'
+        path = '/options/instrument'
+        credentials = False
+        params = {}
+        
+        return self.before_request_api(method, path, params, credentials)
+    
+    def options_close_all_positions(self):
+        method = 'DELETE'
+        path = '/options/vanilla/all'
+        credentials = True
+        params = {}
+
+        return self.before_request_api(method, path, params, credentials)
+    
+    def options_close_position(self, params):
+        method = 'DELETE'
+        path = '/options/vanilla'
         credentials = True
 
         return self.before_request_api(method, path, params, credentials)
 
+    def options_get_positions(self, params):
+        method = 'GET'
+        path = '/options/vanilla'
+        credentials = True
+        
+        return self.before_request_api(method, path, params, credentials)
+        
+    def options_new_position(self, params):
+        method = 'POST'
+        path = '/options/vanilla'
+        credentials = True
+        
+        return self.before_request_api(method, path, params, credentials)
+
+    def options_update_settlement(self, params):
+        method = 'PUT'
+        path = '/options/vanilla'
+        credentials = True
+        
+        return self.before_request_api(method, path, params, credentials)
+    
+    def options_get_volatility(self, params):
+        method = 'GET'
+        path = '/options/volatility'
+        credentials = False
+        
+        return self.before_request_api(method, path, params, credentials)
+    
+
+    ## User
+    
+    def deposit_history(self, params):
+        method = 'GET'
+        path = '/user/deposit'
+        credentials = True
+
+        return self.before_request_api(method, path, params, credentials)
+    
+    def deposit(self, params):
+        method = 'POST'
+        path = '/user/deposit'
+        credentials = True
+
+        return self.before_request_api(method, path, params, credentials)
+    
     def get_user(self):
         method = 'GET'
         path = '/user'
@@ -209,20 +299,28 @@ class LNMarketsRest():
 
         return self.before_request_api(method, path, params, credentials)
 
-    def deposit(self, params):
-        method = 'POST'
-        path = '/user/deposit'
-        credentials = True
-
-        return self.before_request_api(method, path, params, credentials)
-
-    def deposit_history(self, params):
+    def get_notifications(self):
         method = 'GET'
-        path = '/user/deposit'
+        path = '/user/notifications'
+        credentials = True
+        params = {}
+        
+        return self.before_request_api(method, path, params, credentials)
+    
+    def mark_notifications_read(self):
+        method = 'PUT'
+        path = '/user/notifications'
+        credentials = True
+        
+        return self.before_request_api(method, path, params, credentials)
+    
+    def withdraw_history(self, params):
+        method = 'GET'
+        path = '/user/withdraw'
         credentials = True
 
         return self.before_request_api(method, path, params, credentials)
-
+    
     def withdraw(self, params):
         method = 'POST'
         path = '/user/withdraw'
@@ -230,12 +328,23 @@ class LNMarketsRest():
 
         return self.before_request_api(method, path, params, credentials)
 
-    def withdraw_history(self, params):
-        method = 'GET'
-        path = '/user/withdraw'
+    ## Swap
+    
+    def swap(self, params):
+        method = 'POST'
+        path = '/swap'
         credentials = True
-
+        
         return self.before_request_api(method, path, params, credentials)
+    
+    def swap_history(self, params):
+        method = 'GET'
+        path = '/swap'
+        credentials = True
+        
+        return self.before_request_api(method, path, params, credentials)  
+    
+    ## App
 
     def app_configuration(self):
         method = 'GET'
@@ -260,70 +369,12 @@ class LNMarketsRest():
         params = {}
 
         return self.before_request_api(method, path, params, credentials)
-
-    def get_announcements(self):
-        method = 'GET'
-        path = '/app/announcements'
-        credentials = False
-        params = {}
-
-        return self.before_request_api(method, path, params, credentials)
-
-    def get_lnurl_auth(self):
-        method = 'POST'
-        path = '/lnurl/auth'
-        credentials = False
-        params = {}
-
-        return self.before_request_api(method, path, params, credentials)
-
-    def lnurlAuth(self, params):
-        method = 'GET'
-        path = '/lnurl/auth'
-        credentials = False
-        
-        return self.before_request_api(method, path, params, credentials)
     
-    def options_get_positions(self, params):
+    ## Oracle
+    
+    def get_oracle(self, params):
         method = 'GET'
-        path = '/options/vanilla'
-        credentials = True
-        
-        return self.before_request_api(method, path, params, credentials)
-        
-    def options_new_position(self, params):
-        method = 'POST'
-        path = '/options/vanilla'
-        credentials = True
-        
-        return self.before_request_api(method, path, params, credentials)
-
-    def options_get_volatility(self):
-        method = 'GET'
-        path = '/options/volatility'
+        path = '/oracle/index'
         credentials = False
-        params = {}
         
         return self.before_request_api(method, path, params, credentials)
-    
-    def options_get_configuration(self):
-        method = 'GET'
-        path = '/options/instrument'
-        credentials = False
-        params = {}
-        
-        return self.before_request_api(method, path, params, credentials)
-    
-    def swap(self, params):
-        method = 'POST'
-        path = '/swap'
-        credentials = True
-        
-        return self.before_request_api(method, path, params, credentials)
-    
-    def swap_history(self, params):
-        method = 'GET'
-        path = '/swap'
-        credentials = True
-        
-        return self.before_request_api(method, path, params, credentials)  
