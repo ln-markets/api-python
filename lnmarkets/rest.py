@@ -72,7 +72,7 @@ class LNMarketsRest():
             opts['ressource'] += '?' + data
         return opts
 
-    def request_api(self, method, path, params, credentials = False):
+    def request_api(self, method, path, params, credentials = False, format='text'):
         options = {
           'method': method,
           'path': path,
@@ -88,293 +88,299 @@ class LNMarketsRest():
             response = request(method, ressource, headers = headers)
         elif method in ['POST', 'PUT']:
             response = request(method, ressource, data = json.dumps(params, separators=(',', ':')), headers = headers)
-        return response.text
+        
+        if format == 'json':
+            return response.json()
+        elif format is None:
+            return response
+        else:
+            return response.text
     
-    def before_request_api(self, method, path, params, credentials):
-        return self.request_api(method, path, params, credentials)
+    def before_request_api(self, method, path, params, credentials, format='text'):
+        return self.request_api(method, path, params, credentials, format)
 
     
     ## Futures 
     
-    def futures_add_margin_position(self, params):
+    def futures_add_margin_position(self, params, format='text'):
         method = 'POST'
         path = '/futures/add-margin'
         credentials = True
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
 
-    def futures_cancel_all_positions(self):
+    def futures_cancel_all_positions(self, format='text'):
         method = 'DELETE'
         path = '/futures/all/cancel'
         credentials = True
         params = {}
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
 
-    def futures_close_all_positions(self):
+    def futures_close_all_positions(self, format='text'):
         method = 'DELETE'
         path = '/futures/all/close'
         credentials = True
         params = {}
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
     
-    def futures_cancel_position(self, params):
+    def futures_cancel_position(self, params, format='text'):
         method = 'POST'
         path = '/futures/cancel'
         credentials = True
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
 
-    def futures_carry_fees_history(self, params):
+    def futures_carry_fees_history(self, params, format='text'):
         method = 'GET'
         path = '/futures/carry-fees'
         credentials = True
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
     
     
-    def futures_cashin_position(self, params):
+    def futures_cashin_position(self, params, format='text'):
         method = 'POST'
         path = '/futures/cash-in'
         credentials = True
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
     
-    def futures_close_position(self, params):
+    def futures_close_position(self, params, format='text'):
         method = 'DELETE'
         path = '/futures'
         credentials = True
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
 
-    def futures_get_positions(self, params):
+    def futures_get_positions(self, params, format='text'):
         method = 'GET'
         path = '/futures'
         credentials = True
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
     
-    def futures_new_position(self, params):
+    def futures_new_position(self, params, format='text'):
         method = 'POST'
         path = '/futures'
         credentials = True
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
     
-    def futures_update_position(self, params):
+    def futures_update_position(self, params, format='text'):
         method = 'PUT'
         path = '/futures'
         credentials = True
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
     
-    def futures_bid_offer_history(self, params):
+    def futures_bid_offer_history(self, params, format='text'):
         method = 'GET'
         path = '/futures/history/bid-offer'
         credentials = False
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
         
-    def futures_fixing_history(self, params):
+    def futures_fixing_history(self, params, format='text'):
         method = 'GET'
         path = '/futures/history/fixing'
         credentials = False
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
 
-    def futures_index_history(self, params):
+    def futures_index_history(self, params, format='text'):
         method = 'GET'
         path = '/futures/history/index'
         credentials = False
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
     
-    def futures_get_configuration(self):
+    def futures_get_configuration(self, format='text'):
         method = 'GET'
         path = '/futures/instrument'
         credentials = False
         params = {}
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
     
-    def futures_get_ticker(self):
+    def futures_get_ticker(self, format='text'):
         method = 'GET'
         path = '/futures/ticker'
         credentials = False
         params = {}
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
 
     ## Options
 
-    def options_get_expiries(self):
+    def options_get_expiries(self, format='text'):
         method = 'GET'
         path = '/options/instrument/expiry'
         credentials = False
         params = {}
         
-        return self.before_request_api(method, path, params, credentials)    
+        return self.before_request_api(method, path, params, credentials, format)    
     
-    def options_get_configuration(self):
+    def options_get_configuration(self, format='text'):
         method = 'GET'
         path = '/options/instrument'
         credentials = False
         params = {}
         
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
     
-    def options_close_all_positions(self):
+    def options_close_all_positions(self, format='text'):
         method = 'DELETE'
         path = '/options/vanilla/all'
         credentials = True
         params = {}
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
     
-    def options_close_position(self, params):
+    def options_close_position(self, params, format='text'):
         method = 'DELETE'
         path = '/options/vanilla'
         credentials = True
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
 
-    def options_get_positions(self, params):
+    def options_get_positions(self, params, format='text'):
         method = 'GET'
         path = '/options/vanilla'
         credentials = True
         
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
         
-    def options_new_position(self, params):
+    def options_new_position(self, params, format='text'):
         method = 'POST'
         path = '/options/vanilla'
         credentials = True
         
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
 
-    def options_update_position(self, params):
+    def options_update_position(self, params, format='text'):
         method = 'PUT'
         path = '/options/vanilla'
         credentials = True
         
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
     
-    def options_get_volatility(self, params):
+    def options_get_volatility(self, params, format='text'):
         method = 'GET'
         path = '/options/volatility'
         credentials = False
         
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
     
 
     ## User
     
-    def deposit_history(self, params):
+    def deposit_history(self, params, format='text'):
         method = 'GET'
         path = '/user/deposit'
         credentials = True
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
     
-    def deposit(self, params):
+    def deposit(self, params, format='text'):
         method = 'POST'
         path = '/user/deposit'
         credentials = True
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
     
-    def get_user(self):
+    def get_user(self, format='text'):
         method = 'GET'
         path = '/user'
         credentials = True
         params = {}
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
 
-    def update_user(self, params):
+    def update_user(self, params, format='text'):
         method = 'PUT'
         path = '/user'
         credentials = True
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
 
-    def get_notifications(self):
+    def get_notifications(self, format='text'):
         method = 'GET'
         path = '/user/notifications'
         credentials = True
         params = {}
         
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
     
-    def mark_notifications_read(self):
+    def mark_notifications_read(self, format='text'):
         method = 'PUT'
         path = '/user/notifications'
         credentials = True
         
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
     
-    def withdraw_history(self, params):
+    def withdraw_history(self, params, format='text'):
         method = 'GET'
         path = '/user/withdraw'
         credentials = True
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
     
-    def withdraw(self, params):
+    def withdraw(self, params, format='text'):
         method = 'POST'
         path = '/user/withdraw'
         credentials = True
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
 
     ## Swap
     
-    def swap(self, params):
+    def swap(self, params, format='text'):
         method = 'POST'
         path = '/swap'
         credentials = True
         
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
     
-    def swap_history(self, params):
+    def swap_history(self, params, format='text'):
         method = 'GET'
         path = '/swap'
         credentials = True
         
-        return self.before_request_api(method, path, params, credentials)  
+        return self.before_request_api(method, path, params, credentials, format)  
     
     ## App
 
-    def app_configuration(self):
+    def app_configuration(self, format='text'):
         method = 'GET'
         path = '/app/configuration'
         credentials = False
         params = {}
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
 
-    def app_node(self):
+    def app_node(self, format='text'):
         method = 'GET'
         path = '/app/node'
         credentials = False
         params = {}
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
 
-    def get_leaderboard(self):
+    def get_leaderboard(self, format='text'):
         method = 'GET'
         path = '/futures/leaderboard'
         credentials = False
         params = {}
 
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
     
     ## Oracle
     
-    def get_oracle(self, params):
+    def get_oracle(self, params, format='text'):
         method = 'GET'
         path = '/oracle/index'
         credentials = False
         
-        return self.before_request_api(method, path, params, credentials)
+        return self.before_request_api(method, path, params, credentials, format)
