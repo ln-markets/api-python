@@ -35,7 +35,8 @@ Use the LNMarketsWebsocket and your key / passphrase to instanciate a new api co
 ```python
 options = {'key': 'your_api_key', 
            'secret': 'your_api_secret', 
-           'passphrase': 'your_api_passphrase'}
+           'passphrase': 'your_api_passphrase',
+           'network': 'testnet'}
 
 lnm = websockets.LNMarketsWebsocket(**options)
 lnm.connect()
@@ -56,7 +57,8 @@ Use the LNMarketsRest and your key / passphrase to instanciate a new api connect
 ```python
 options = {'key': 'your_api_key', 
            'secret': 'your_api_secret', 
-           'passphrase': 'your_api_passphrase'}
+           'passphrase': 'your_api_passphrase',
+           'network': 'testnet'}
 
 lnm = rest.LNMarketsRest(**options)
 
@@ -75,10 +77,9 @@ lnm.futures_get_ticker()
 - [`futures_get_positions`](#futures_get_positions)
 - [`futures_new_position`](#futures_new_position)
 - [`futures_update_position`](#futures_update_position)
-- [`futures_bid_offer_history`](#futures_bid_offer_history)
+- [`futures_price_history`](#futures_price_history)
 - [`futures_fixing_history`](#futures_fixing_history)
 - [`futures_index_history`](#futures_index_history)
-- [`futures_get_configuration`](#futures_get_configuration)
 - [`futures_get_ticker`](#futures_get_ticker)
 - [`options_get_expiries`](#options_get_expiries)
 - [`options_get_configuration`](#options_get_configuration)
@@ -94,6 +95,7 @@ lnm.futures_get_ticker()
 - [`update_user`](#update_user)
 - [`get_notifications`](#get_notifications)
 - [`mark_notifications_read`](#mark_notifications_read)
+- [`mark_all_notifications_read`](#mark_all_notifications_read)
 - [`withdraw_history`](#withdraw_history)
 - [`withdraw`](#withdraw)
 - [`swap`](#swap)
@@ -111,7 +113,7 @@ Add more margin to an existing position.
 amount:
   type: Integer
   required: true
-pid:
+id:
   type: String
   required: true
 ```
@@ -121,11 +123,11 @@ Example:
 ```python
 lnm.futures_add_margin_position({
     'amount': 20000,
-    'pid': '249dc818-f8a5-4713-a3a3-8fe85f2e8969'
+    'id': '249dc818-f8a5-4713-a3a3-8fe85f2e8969'
   })
 ```
 
-[`POST /futures/add-margin`](https://docs.lnmarkets.com/api/v1/#add-margin) documentation for more details.
+[`POST /futures/add-margin`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Futures/paths/~1futures~1add-margin/post) documentation for more details.
 
 ### futures_cancel_all_positions
 
@@ -141,7 +143,7 @@ Example:
 lnm.futures_cancel_all_positions()
 ```
 
-[`DELETE /futures/all/cancel`](https://docs.lnmarkets.com/api/v1/#cancel-all) documentation for more details.
+[`DELETE /futures/all/cancel`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Futures/paths/~1futures~1all~1cancel/delete) documentation for more details.
 
 ### futures_close_all_posisitions
 
@@ -157,14 +159,14 @@ Example:
 lnm.futures_close_all_positions()
 ```
 
-[`DELETE /futures/all/close`](https://docs.lnmarkets.com/api/v1/#cancel) documentation for more details.
+[`DELETE /futures/all/close`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Futures/paths/~1futures~1all~1close/delete) documentation for more details.
 
 ### futures_cancel_position
 
 Cancel a particular position for this user.
 
 ```yml
-pid:
+id:
   type: String
   required: true
 ```
@@ -173,11 +175,11 @@ Example:
 
 ```python
 lnm.futures_cancel_position({
-    'pid': 'b87eef8a-52ab-2fea-1adc-c41fba870b0f'
+    'id': 'b87eef8a-52ab-2fea-1adc-c41fba870b0f'
   })
 ```
 
-[`POST /futures/cancel`](https://docs.lnmarkets.com/api/v1/#cancel) documentation for more details.
+[`POST /futures/cancel`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Futures/paths/~1futures~1cancel/post) documentation for more details.
 
 ### futures_carry_fees_history
 
@@ -206,7 +208,7 @@ lnm.futures_carry_fees_history({
   })
 ```
 
-[`GET /futures/carry-fees`](https://docs.lnmarkets.com/api/v1/#futures-carry-fees-history) documentation for more details.
+[`GET /futures/carry-fees`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Futures/paths/~1futures~1carry-fees/get) documentation for more details.
 
 ### futures_cashin_position
 
@@ -216,7 +218,7 @@ Retrieve a part of the general PL of a running position.
 amount:
   type: Integer
   required: true
-pid:
+id:
   type: String
   required: true
 ```
@@ -226,18 +228,18 @@ Example:
 ```python
 lnm.futures_cashin_position({
     'amount': 1000,
-    'pid': "99c470e1-2e03-4486-a37f-1255e08178b1"
+    'id': "99c470e1-2e03-4486-a37f-1255e08178b1"
   })
 ```
 
-[`POST /futures/cash-in`](https://docs.lnmarkets.com/api/v1/#cancel) documentation for more details.
+[`POST /futures/cash-in`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Futures/paths/~1futures~1cash-in/post) documentation for more details.
 
 ### futures_close_position
 
 Close a particular running position for this user.
 
 ```yml
-pid:
+id:
   type: String
   required: true
 ```
@@ -246,11 +248,11 @@ Example:
 
 ```python
 lnm.futures_close_position({
-    'pid': 'a2ca6172-1078-463d-ae3f-8733f36a9b0e'
+    'id': 'a2ca6172-1078-463d-ae3f-8733f36a9b0e'
   })
 ```
 
-[`DELETE /futures`](https://docs.lnmarkets.com/api/v1/#cancel) documentation for more details.
+[`DELETE /futures`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Futures/paths/~1futures/delete) documentation for more details.
 
 ### futures_get_positions
 
@@ -285,7 +287,7 @@ lnm.futures_get_positions({
   })
 ```
 
-[`GET /futures`](https://docs.lnmarkets.com/api/v1/#history) documentation for more details.
+[`GET /futures`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Futures/paths/~1futures/get) documentation for more details.
 
 ### futures_new_position
 
@@ -338,14 +340,14 @@ Example:
   })
 ```
 
-[`POST /futures`](https://docs.lnmarkets.com/api/v1/#create) documentation for more details.
+[`POST /futures`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Futures/paths/~1futures/post) documentation for more details.
 
 ### futures_update_position
 
 Modify stoploss or takeprofit parameter of an existing position.
 
 ```yml
-pid:
+id:
   type: String
   required: true
 
@@ -363,17 +365,17 @@ Example:
 
 ```python
 lnm.futures_update_position({
-    'pid': 'b87eef8a-52ab-2fea-1adc-c41fba870b0f',
+    'id': 'b87eef8a-52ab-2fea-1adc-c41fba870b0f',
     'type': 'stoploss',
     'value': 13290.5
   })
 ```
 
-[`PUT /futures`](https://docs.lnmarkets.com/api/v1/#update) documentation for more details.
+[`PUT /futures`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Futures/paths/~1futures/put) documentation for more details.
 
-### futures_bid_offer_history
+### futures_price_history
 
-Get bid and offer data over time.
+Get Futures data over time.
 
 ```yml
 from:
@@ -392,12 +394,12 @@ limit: Integer
 Example:
 
 ```python
-lnm.futures_bid_offer_history({
+lnm.futures_price_history({
     'limit': 20
   })
 ```
 
-[`GET /futures/history/bid-offer`](https://docs.lnmarkets.com/api/v1/#futures-bid-and-offer-history) documentation for more details.
+[`GET /futures/history/price`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Futures/paths/~1futures~1history~1price/get) documentation for more details.
 
 ### futures_fixing_history
 
@@ -426,7 +428,7 @@ lnm.futures_fixing_history({
   })
 ```
 
-[`GET /futures/history/fixing`](https://docs.lnmarkets.com/api/v1/#futures-fixing-history) documentation for more details.
+[`GET /futures/history/fixing`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Futures/paths/~1futures~1history~1fixing/get) documentation for more details.
 
 ### futures_index_history
 
@@ -455,24 +457,7 @@ lnm.futures_index_history({
   })
 ```
 
-[`GET /futures/history/index`](https://docs.lnmarkets.com/api/v1/#futures-index-history) documentation for more details.
-
-
-### futures_get_configuration
-
-Get the configuration related to futures trading on the platform.
-
-```
-# No parameters
-```
-
-Example:
-
-```python
-lnm.futures_get_configuration()
-```
-
-[`GET /futures/instrument`](https://docs.lnmarkets.com/api/v1/#tag/Futures/paths/~1futures~1instrument/get) documentation for more details.
+[`GET /futures/history/index`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Futures/paths/~1futures~1history~1index/get) documentation for more details.
 
 ### futures_get_ticker
 
@@ -488,7 +473,7 @@ Example:
 lnm.futures_get_ticker()
 ```
 
-[`GET /futures/ticker`](https://docs.lnmarkets.com/api/v1/#tag/Futures/paths/~1futures~1ticker/get) documentation for more details.
+[`GET /futures/ticker`](https://docs.lnmarkets.com/api/v2/#tag/Futures/paths/~1futures~1ticker/get) documentation for more details.
 
 ### options_get_expiries
 
@@ -504,7 +489,7 @@ Example:
 lnm.options_get_expiries()
 ```
 
-[`GET /options/instrument/expiry`](https://docs.lnmarkets.com/api/v1/#tag/Options/paths/~1options~1instrument~1expiry/get) documentation for more details.
+[`GET /options/instrument/expiry`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Options/paths/~1options~1instrument~1expiry/get) documentation for more details.
 
 ### options_get_configuration
 
@@ -520,7 +505,7 @@ Example:
 lnm.options_get_configuration()
 ```
 
-[`GET /options/instrument`](https://docs.lnmarkets.com/api/v1/#tag/Options/paths/~1options~1instrument~1expiry/get) documentation for more details.
+[`GET /options/instrument`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Options/paths/~1options~1instrument/get) documentation for more details.
 
 ### options_close_all_positions
 
@@ -536,7 +521,7 @@ Example:
 lnm.options_close_all_positions()
 ```
 
-[`DELETE /options/vanilla/all`](https://docs.lnmarkets.com/api/v1/#tag/Options/paths/~1options~1vanilla~1all/delete) documentation for more details.
+[`DELETE /options/vanilla/all`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Options/paths/~1options~1vanilla~1all/delete) documentation for more details.
 
 ### options_close_position
 
@@ -556,7 +541,7 @@ lnm.options_close_position({
   })
 ```
 
-[`DELETE /options/vanilla`](https://docs.lnmarkets.com/api/v1/#tag/Options/paths/~1options~1vanilla/delete) documentation for more details.
+[`DELETE /options/vanilla`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Options/paths/~1options~1vanilla/delete) documentation for more details.
 
 ### options_get_positions
 
@@ -591,7 +576,7 @@ Example:
   })
 ```
 
-[`GET /options/vanilla`](https://docs.lnmarkets.com/api/v1/#tag/Options/paths/~1options~1vanilla/get) documentation for more details.
+[`GET /options/vanilla`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Options/paths/~1options~1vanilla/get) documentation for more details.
 
 ### options_new_position
 
@@ -631,7 +616,7 @@ Example:
   })
 ```
 
-[`POST /options/vanilla`](https://docs.lnmarkets.com/api/v1) documentation for more details.
+[`POST /options/vanilla`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Options/paths/~1options~1vanilla/post) documentation for more details.
 
 ### options_update_position
 
@@ -652,12 +637,12 @@ Example:
 
 ```python
 lnm.options_update_position({
-    'pid': 'a2ca6172-1078-463d-ae3f-8733f36a9b0e',
+    'id': 'a2ca6172-1078-463d-ae3f-8733f36a9b0e',
     'settlement': 'physical'
   })
 ```
 
-[`PUT /options/vanilla`](https://docs.lnmarkets.com/api/v1/#tag/Options/paths/~1options~1vanilla/put) documentation for more details.
+[`PUT /options/vanilla`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Options/paths/~1options~1vanilla/put) documentation for more details.
 
 #### options_get_volatility
 
@@ -677,7 +662,7 @@ lnm.options_get_volatility({
   })
 ```
 
-[`GET /options/volatility`](https://docs.lnmarkets.com/api/v1/#tag/Options/paths/~1options~1volatility/get) documentation for more details.
+[`GET /options/volatility`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Options/paths/~1options~1volatility/get) documentation for more details.
 
 ### deposit_history
 
@@ -705,7 +690,7 @@ lnm.deposit_history({
   })
 ```
 
-[`GET /user/deposit`](https://docs.lnmarkets.com/api/v1/#deposit) documentation for more details.
+[`GET /user/deposit`](https://docs.lnmarkets.com/testnet/api/v2/#tag/User/paths/~1user~1deposit/post) documentation for more details.
 
 ### deposit
 
@@ -729,7 +714,7 @@ lnm.deposit({
   })
 ```
 
-[`POST /user/deposit`](https://docs.lnmarkets.com/api/v1/#deposit) documentation for more details.
+[`POST /user/deposit`](https://docs.lnmarkets.com/testnet/api/v2/#tag/User/paths/~1user/get) documentation for more details.
 
 ### get_user
 
@@ -744,7 +729,7 @@ Example:
 ```python
 lnm.get_user()
 
-[`GET /user`](https://docs.lnmarkets.com/api/v1/#informations) documentation for more details.
+[`GET /user`](https://docs.lnmarkets.com/testnet/api/v2/#tag/User/paths/~1user/get) documentation for more details.
 
 ### update_user
 
@@ -781,7 +766,7 @@ lnm.update_user({
   })
 ```
 
-[`PUT /user`](https://docs.lnmarkets.com/api/v1/#tag/User/paths/~1user/put) documentation for more details.
+[`PUT /user`](https://docs.lnmarkets.com/testnet/api/v2/#tag/User/paths/~1user/put) documentation for more details.
 
 ### get_notifications
 
@@ -797,7 +782,7 @@ Example:
 lnm.get_notifications()
 ```
 
-[`GET /user/notifications`](https://docs.lnmarkets.com/api/v1/#tag/User/paths/~1user~1notifications/get) documentation for more details.
+[`GET /user/notifications`](https://docs.lnmarkets.com/testnet/api/v2/#tag/User/paths/~1user~1notifications/get) documentation for more details.
 
 ### mark_notifications_read
 
@@ -818,7 +803,23 @@ lnm.mark_notifications_read({"ids":
 })
 ```
 
-[`PUT /user/notifications`](https://docs.lnmarkets.com/api/v1/#tag/User/paths/~1user~1notifications/put) documentation for more details.
+[`PUT /user/notifications`](https://docs.lnmarkets.com/testnet/api/v2/#tag/User/paths/~1user~1notifications/put) documentation for more details.
+
+### mark_all_notifications_read
+
+Mark all notifications as read
+
+```
+# No parameters
+```
+
+Example:
+
+```python
+lnm.mark_all_notifications_read()
+```
+
+[`PUT /user/notifications`](https://docs.lnmarkets.com/testnet/api/v2/#tag/User/paths/~1user~1notifications~1all/put) documentation for more details.
 
 ### withdraw_history
 
@@ -846,7 +847,7 @@ lnm.withdraw_history({
   })
 ```
 
-[`GET /user/withdraw`](https://docs.lnmarkets.com/api/v1/#withdraw) documentation for more details.
+[`GET /user/withdraw`](https://docs.lnmarkets.com/testnet/api/v2/#tag/User/paths/~1user~1withdraw/get) documentation for more details.
 
 ### withdraw
 
@@ -876,7 +877,7 @@ lnm.withdraw({
   })
 ```
 
-[`POST /user/withdraw`](https://docs.lnmarkets.com/api/v1/#withdraw-via-invoice) documentation for more details.
+[`POST /user/withdraw`](https://docs.lnmarkets.com/testnet/api/v2/#tag/User/paths/~1user~1withdraw/post) documentation for more details.
 
 ### swap
 
@@ -913,7 +914,7 @@ Example:
   })
 ```
 
-[`POST /swap`](https://docs.lnmarkets.com/api/v1/#tag/Swap/paths/~1swap/post) documentation for more details.
+[`POST /swap`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Swap/paths/~1swap/post) documentation for more details.
 
 ### swap_history
 
@@ -944,7 +945,7 @@ Example:
   })
 ```
 
-[`GET /swap_history`](https://docs.lnmarkets.com/api/v1/#tag/Swap/paths/~1swap/get) documentation for more details.
+[`GET /swap_history`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Swap/paths/~1swap/get) documentation for more details.
 
 #### app_configuration
 
@@ -960,7 +961,7 @@ Example:
 lnm.app_configuration()
 ```
 
-[`GET /app/configuration`](https://docs.lnmarkets.com/api/v1/#tag/App/paths/~1app~1configuration/get) documentation for more details.
+[`GET /app/configuration`](https://docs.lnmarkets.com/testnet/api/v2/#tag/App/paths/~1app~1configuration/get) documentation for more details.
 
 #### app_node
 
@@ -976,7 +977,7 @@ Example:
 lnm.app_node()
 ```
 
-[`GET /app/node`](https://docs.lnmarkets.com/api/v1/#tag/App/paths/~1app~1node/get) documentation for more details.
+[`GET /app/node`](https://docs.lnmarkets.com/testnet/api/v2/#tag/App/paths/~1app~1node/get) documentation for more details.
 
 ### get_leaderboard
 
@@ -992,7 +993,7 @@ Example:
 lnm.get_leaderboard()
 ```
 
-[`GET /futures/leaderboard`](https://docs.lnmarkets.com/api/v1/#leaderboard) documentation for more details.
+[`GET /futures/leaderboard`](https://docs.lnmarkets.com/testnet/api/v2/#tag/App/paths/~1futures~1leaderboard/get) documentation for more details.
 
 ### get_oracle
 
@@ -1023,6 +1024,6 @@ Example:
   })
 ```
 
-[`GET /oracle/index`](https://docs.lnmarkets.com/api/v1/#tag/Oracle) documentation for more details.
+[`GET /oracle/index`](https://docs.lnmarkets.com/testnet/api/v2/#tag/Oracle) documentation for more details.
 
 

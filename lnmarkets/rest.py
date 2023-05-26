@@ -25,7 +25,7 @@ class LNMarketsRest():
         self.secret = options.get('secret', os.getenv('LNMARKETS_API_SECRET'))
         self.passphrase = options.get('passphrase', os.getenv('LNMARKETS_API_PASSPHRASE'))
         self.network = options.get('network', os.getenv('LNMARKETS_API_NETWORK', 'mainnet'))
-        self.version = options.get('version', os.getenv('LNMARKETS_API_VERSION', 'v1'))
+        self.version = options.get('version', os.getenv('LNMARKETS_API_VERSION', 'v2'))
         self.hostname = get_hostname(self.network)
         self.custom_headers = options.get('custom_headers')
         self.full_response = options.get('full_response', False)
@@ -174,13 +174,6 @@ class LNMarketsRest():
         credentials = True
 
         return self.before_request_api(method, path, params, credentials, format)
-    
-    def futures_bid_offer_history(self, params, format='text'):
-        method = 'GET'
-        path = '/futures/history/bid-offer'
-        credentials = False
-
-        return self.before_request_api(method, path, params, credentials, format)
         
     def futures_fixing_history(self, params, format='text'):
         method = 'GET'
@@ -196,11 +189,10 @@ class LNMarketsRest():
 
         return self.before_request_api(method, path, params, credentials, format)
     
-    def futures_get_configuration(self, format='text'):
+    def futures_price_history(self, params, format='text'):
         method = 'GET'
-        path = '/futures/instrument'
+        path = '/futures/history/price'
         credentials = False
-        params = {}
 
         return self.before_request_api(method, path, params, credentials, format)
     
@@ -313,11 +305,20 @@ class LNMarketsRest():
         
         return self.before_request_api(method, path, params, credentials, format)
     
+    def mark_all_notifications_read(self, format='text'):
+        method = 'PUT'
+        path = '/user/notifications/all'
+        credentials = True
+        params = {}
+        
+        return self.before_request_api(method, path, params, credentials, format)
+    
     def mark_notifications_read(self, format='text'):
         method = 'PUT'
         path = '/user/notifications'
         credentials = True
-        
+        params = {}
+
         return self.before_request_api(method, path, params, credentials, format)
     
     def withdraw_history(self, params, format='text'):
