@@ -11,7 +11,7 @@ pip3 install ln-markets
 
 ## Use
 
-You can import the rest class from ln_markets
+You can import the rest class from lnmarkets
 ```python
 from lnmarkets import rest
 ```
