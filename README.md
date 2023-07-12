@@ -7,16 +7,18 @@ A simple way to connect your Python application to [LN Markets](https://lnmarket
 You can install this package with pip:
 ```shell
 pip3 install ln-markets
+```
 
-## Usage
+## Use
 
 You can import rest class from ln_markets
 ```python
 from lnmarkets import rest
 ```
-And the websocket one as well!
+And the websocket class as well
 ```python
 from lnmarkets import websockets
+```
 
 ## Authentication
 
