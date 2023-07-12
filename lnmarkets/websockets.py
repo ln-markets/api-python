@@ -47,7 +47,7 @@ class LNMarketsWebsocket:
     def subscribe(self, params):
         payload = {
             "jsonrpc": "2.0",
-            "method": "subscribe",
+            "method": "v1/public/subscribe",
             "id": secrets.token_bytes(4).hex(),
             "params": params
         }
