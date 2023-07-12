@@ -48,7 +48,7 @@ lnm.connect()
 
 ### Subscription
 
-You can subscribe to LNM Markets public event such as futures bid offer, index and options data.
+You can subscribe to LNM Markets public event such as futures last price ('futures:btc_usd:last-price') and index ('futures:btc_usd:index').
 
 ## REST API
 
