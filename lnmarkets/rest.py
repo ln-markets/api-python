@@ -86,6 +86,9 @@ class LNMarketsRest():
             pub = str(root.to_public().key)
             
             lnurl = lnurl + '&sig=' + sig + '&key=' + pub
+            expected = f'https://api.lnmarkets.com/v2/lnurl/auth?tag=login&k1={k1}&hmac={hmac}&sig={sig}&key={pub}'
+            if lnurl != expected:
+                raise Exception("lnurl received don't follow expected pattern!")
             
             # get auth cookie
             ret = self.session.get(lnurl).json()
