@@ -11,7 +11,7 @@ from base64 import b64encode
 from bech32 import bech32_decode, convertbits
 from embit import bip39, bip32
 from embit.ec import PrivateKey as EmbitPrivateKey
-from binascii import unhexlify
+from binascii import unhexlify, hexlify
 
 
 def lnurl_decode(lnurl: str) -> str:
@@ -67,13 +67,26 @@ class LNMarketsRest():
         
         if self.mnemonic:
             self.mnemonic_auth()
+            
+    def renew_cookie(self):
+        if self.mnemonic:
+            self.logout()
+            self.mnemonic_auth()
+        
+    def logout(self):
+        ret = self.session.post(f"https://{self.hostname}/v2/user/logout").status_code
+        if ret != 200:
+            raise Exception("Cannot logout!")
 
     def mnemonic_auth(self):
+        lnurl = None
+        expected = None
         try:
-            lnurl = lnurl_decode(self.session.post("https://api.lnmarkets.com/v2/lnurl/auth", ).json()['lnurl'])
+            lnurl = lnurl_decode(self.session.post(f"https://{self.hostname}/v2/lnurl/auth", ).json()['lnurl'])
             
-            k1 = unhexlify(lnurl.split('&hmac=')[0].split('&k1=')[1])
-            hmac = unhexlify(lnurl.split('&hmac=')[1])
+            k1_str = lnurl.split('&hmac=')[0].split('&k1=')[1]
+            k1 = unhexlify(k1_str)
+            hmac = lnurl.split('&hmac=')[1]
             
             domain = bytes(lnurl.split('//')[1].split('/')[0], 'utf-8')
             derivation = hashlib.sha256(domain).digest()
@@ -86,7 +99,7 @@ class LNMarketsRest():
             pub = str(root.to_public().key)
             
             lnurl = lnurl + '&sig=' + sig + '&key=' + pub
-            expected = f'https://api.lnmarkets.com/v2/lnurl/auth?tag=login&k1={k1}&hmac={hmac}&sig={sig}&key={pub}'
+            expected = f'https://{self.hostname}/v2/lnurl/auth?tag=login&k1={k1_str}&hmac={hmac}&sig={sig}&key={pub}'
             if lnurl != expected:
                 raise Exception("lnurl received don't follow expected pattern!")
             
@@ -97,6 +110,8 @@ class LNMarketsRest():
                 raise Exception('Cannot auth using the seed!')
         
         except:
+            print(f'lnurl    ={lnurl} ')
+            print(f'expected ={expected} ')
             raise Exception('Cannot auth using the seed!')
     
     def _request_options(self, **options):
