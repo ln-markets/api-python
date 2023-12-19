@@ -7,16 +7,18 @@ A simple way to connect your Python application to [LN Markets](https://lnmarket
 You can install this package with pip:
 ```shell
 pip3 install ln-markets
+```
 
-## Usage
+## Use
 
-You can import rest class from ln_markets
+You can import the rest class from lnmarkets
 ```python
 from lnmarkets import rest
 ```
-And the websocket one as well!
+And the websocket class as well
 ```python
 from lnmarkets import websockets
+```
 
 ## Authentication
 
@@ -35,7 +37,8 @@ Use the LNMarketsWebsocket and your key / passphrase to instanciate a new api co
 ```python
 options = {'key': 'your_api_key', 
            'secret': 'your_api_secret', 
-           'passphrase': 'your_api_passphrase'}
+           'passphrase': 'your_api_passphrase',
+           'network': 'testnet'}
 
 lnm = websockets.LNMarketsWebsocket(**options)
 lnm.connect()
@@ -45,7 +48,7 @@ lnm.connect()
 
 ### Subscription
 
-You can subscribe to LNM Markets public event such as futures bid offer, index and options data.
+You can subscribe to LNM Markets public event such as futures last price ('futures:btc_usd:last-price') and index ('futures:btc_usd:index').
 
 ## REST API Authentication
 
@@ -58,7 +61,8 @@ from lnmarkets import rest
 
 options = {'key': 'your_api_key', 
            'secret': 'your_api_secret', 
-           'passphrase': 'your_api_passphrase'}
+           'passphrase': 'your_api_passphrase',
+           'network': 'testnet'}
 
 lnm = rest.LNMarketsRest(**options)
 
@@ -97,53 +101,64 @@ lnm.renew_cookie()
 ```
 ## REST API
 
-- [`futures_add_margin_position`](#futures_add_margin_position)
-- [`futures_cancel_all_positions`](#futures_cancel_all_positions)
-- [`futures_close_all_positions`](#futures_close_all_positions)
-- [`futures_cancel_position`](#futures_cancel_position)
-- [`futures_carry_fees_history`](#futures_carry_fees_history)
-- [`futures_cashin_position`](#futures_cashin_position)
-- [`futures_close_position`](#futures_close_position)
-- [`futures_get_positions`](#futures_get_positions)
-- [`futures_new_position`](#futures_new_position)
-- [`futures_update_position`](#futures_update_position)
-- [`futures_bid_offer_history`](#futures_bid_offer_history)
-- [`futures_fixing_history`](#futures_fixing_history)
-- [`futures_index_history`](#futures_index_history)
-- [`futures_get_configuration`](#futures_get_configuration)
+- [`futures_add_margin`](#futures_add_margin)
+- [`futures_cancel_all`](#futures_cancel_all)
+- [`futures_close_all`](#futures_close_all)
+- [`futures_cancel`](#futures_cancel)
+- [`futures_cashin`](#futures_cashin)
+- [`futures_close`](#futures_close)
+- [`futures_get_trades`](#futures_get_trades)
+- [`futures_new_trade`](#futures_new_trade)
+- [`futures_update_trade`](#futures_update_trade)
+- [`futures_carry_fees`](#futures_carry_fees)
+- [`futures_get_price`](#futures_get_price)
+- [`futures_fixing`](#futures_fixing)
+- [`futures_index`](#futures_index)
+- [`futures_get_leaderboard`](#futures_get_leaderboard)
 - [`futures_get_ticker`](#futures_get_ticker)
-- [`options_get_expiries`](#options_get_expiries)
-- [`options_get_configuration`](#options_get_configuration)
-- [`options_close_all_positions`](#options_close_all_positions)
-- [`options_close_position`](#options_close_position)
-- [`options_get_positions`](#options_get_positions)
-- [`options_new_position`](#options_new_position)
-- [`options_update_position`](#options_update_position)
+- [`futures_get_market`](#futures_get_market)
+- [`options_get_instruments`](#options_get_instruments)
+- [`options_get_instrument`](#options_get_instrument)
+- [`options_close_all`](#options_close_all)
+- [`options_close`](#options_close)
+- [`options_get_trades`](#options_get_trades)
+- [`options_new_trade`](#options_new_trade)
+- [`options_update_trade`](#options_update_trade)
 - [`options_get_volatility`](#options_get_volatility)
-- [`deposit_history`](#deposit_history)
-- [`deposit`](#deposit)
-- [`get_user`](#get_user)
-- [`update_user`](#update_user)
-- [`get_notifications`](#get_notifications)
-- [`mark_notifications_read`](#mark_notifications_read)
-- [`withdraw_history`](#withdraw_history)
-- [`withdraw`](#withdraw)
+- [`options_get_market`](#options_get_market)
+- [`get_swaps`](#get_swaps)
 - [`swap`](#swap)
-- [`swap_history`](#swap_history)
-- [`app_configuration`](#app_configuration)
-- [`app_node`](#app_node)
-- [`get_leaderboard`](#get_leaderboard)
-- [`get_oracle`](#get_oracle)
+- get_user
+- update_user
+- get_new_bitcoin_address
+- get_bitcoin_addresses
+- get_deposit
+- get_deposits
+- new_deposit
+- get_withdrawal
+- get_withdrawals
+- new_withdraw
+- new_internal_transfer
+- get_oracle_index
+- get_oracle_last
+- fetch_notifications
+- mark_notifications_read
+- app_configuration
+- app_node
 
-### futures_add_margin_position
 
-Add more margin to an existing position.
+[`See the API documentation`](https://docs.lnmarkets.com/api/v2) for more details.
+
+
+### futures_add_margin
+
+Add more margin to an existing trade.
 
 ```yml
 amount:
   type: Integer
   required: true
-pid:
+id:
   type: String
   required: true
 ```
@@ -151,17 +166,17 @@ pid:
 Example:
 
 ```python
-lnm.futures_add_margin_position({
+lnm.futures_add_margin({
     'amount': 20000,
-    'pid': '249dc818-f8a5-4713-a3a3-8fe85f2e8969'
+    'id': '249dc818-f8a5-4713-a3a3-8fe85f2e8969'
   })
 ```
 
-[`POST /futures/add-margin`](https://docs.lnmarkets.com/api/v1/#add-margin) documentation for more details.
+[`POST /futures/add-margin`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
-### futures_cancel_all_positions
+### futures_cancel_all
 
-Cancel all opened (not running) positions for this user.
+Cancel all opened (not running) trades for this user.
 
 ```
 # No parameters
@@ -170,14 +185,14 @@ Cancel all opened (not running) positions for this user.
 Example:
 
 ```python
-lnm.futures_cancel_all_positions()
+lnm.futures_cancel_all()
 ```
 
-[`DELETE /futures/all/cancel`](https://docs.lnmarkets.com/api/v1/#cancel-all) documentation for more details.
+[`DELETE /futures/all/cancel`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
-### futures_close_all_posisitions
+### futures_close_all
 
-Close all running position for this user.
+Close all running trades for this user.
 
 ```
 # No parameters
@@ -189,14 +204,14 @@ Example:
 lnm.futures_close_all_positions()
 ```
 
-[`DELETE /futures/all/close`](https://docs.lnmarkets.com/api/v1/#cancel) documentation for more details.
+[`DELETE /futures/all/close`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
-### futures_cancel_position
+### futures_cancel
 
-Cancel a particular position for this user.
+Cancel a specific trade for this user.
 
 ```yml
-pid:
+id:
   type: String
   required: true
 ```
@@ -205,24 +220,48 @@ Example:
 
 ```python
 lnm.futures_cancel_position({
-    'pid': 'b87eef8a-52ab-2fea-1adc-c41fba870b0f'
+    'id': 'b87eef8a-52ab-2fea-1adc-c41fba870b0f'
   })
 ```
 
-[`POST /futures/cancel`](https://docs.lnmarkets.com/api/v1/#cancel) documentation for more details.
+[`POST /futures/cancel`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
-### futures_carry_fees_history
+### futures_cashin
+
+Cash in a part of the PL of a running trade.
+
+```yml
+amount:
+  type: Integer
+  required: true
+id:
+  type: String
+  required: true
+```
+
+Example:
+
+```python
+lnm.futures_cashin({
+    'amount': 1000,
+    'id': "99c470e1-2e03-4486-a37f-1255e08178b1"
+  })
+```
+
+[`POST /futures/cash-in`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+
+### futures_carry_fees
 
 Get carry-fees history.
 
 ```yml
 from:
   type: Integer
-  required: false
+  required: true
 
 to:
   type: Integer
-  required: false
+  required: tue
 
 limit:
   type: Integer
@@ -233,22 +272,19 @@ limit:
 Example:
 
 ```python
-lnm.futures_carry_fees_history({
+lnm.futures_carry_fees({
     'limit': 20
   })
 ```
 
-[`GET /futures/carry-fees`](https://docs.lnmarkets.com/api/v1/#futures-carry-fees-history) documentation for more details.
+[`GET /futures/carry-fees`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
-### futures_cashin_position
+### futures_close
 
-Retrieve a part of the general PL of a running position.
+Close a specific running trade for this user.
 
 ```yml
-amount:
-  type: Integer
-  required: true
-pid:
+id:
   type: String
   required: true
 ```
@@ -256,37 +292,16 @@ pid:
 Example:
 
 ```python
-lnm.futures_cashin_position({
-    'amount': 1000,
-    'pid': "99c470e1-2e03-4486-a37f-1255e08178b1"
+lnm.futures_close({
+    'id': 'a2ca6172-1078-463d-ae3f-8733f36a9b0e'
   })
 ```
 
-[`POST /futures/cash-in`](https://docs.lnmarkets.com/api/v1/#cancel) documentation for more details.
+[`DELETE /futures`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
-### futures_close_position
+### futures_get_trades
 
-Close a particular running position for this user.
-
-```yml
-pid:
-  type: String
-  required: true
-```
-
-Example:
-
-```python
-lnm.futures_close_position({
-    'pid': 'a2ca6172-1078-463d-ae3f-8733f36a9b0e'
-  })
-```
-
-[`DELETE /futures`](https://docs.lnmarkets.com/api/v1/#cancel) documentation for more details.
-
-### futures_get_positions
-
-Retrieve all or a part of user positions.
+Retrieve all or a part of user's trades.
 
 ```yml
 type:
@@ -312,16 +327,16 @@ limit:
 Example:
 
 ```python
-lnm.futures_get_positions({
+lnm.futures_get_trades({
     'type': 'running'
   })
 ```
 
-[`GET /futures`](https://docs.lnmarkets.com/api/v1/#history) documentation for more details.
+[`GET /futures`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
-### futures_new_position
+### futures_new_trade
 
-Open a new position on the market.
+Open a new trade. If type="l", the property price must be included in the request to know when the trade should be filled. You can choose to use the margin or the quantity as a parameter, the other will be calculated with the one you chose.
 
 ```yml
 type:
@@ -336,7 +351,7 @@ side:
 
 margin:
   type: Integer
-  required: false
+  required: true
 
 leverage:
   type: Float
@@ -362,22 +377,22 @@ price:
 Example:
 
 ```python
-  lnm.futures_new_position({
+  lnm.futures_new_trade({
     'type': 'm',
     'side': 's',
     'margin': 10000,
-    'leverage': 25.5,
+    'leverage': 25,
   })
 ```
 
-[`POST /futures`](https://docs.lnmarkets.com/api/v1/#create) documentation for more details.
+[`POST /futures`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
-### futures_update_position
+### futures_update_trade
 
-Modify stoploss or takeprofit parameter of an existing position.
+Modify stoploss or takeprofit parameter of an existing trade.
 
 ```yml
-pid:
+id:
   type: String
   required: true
 
@@ -394,18 +409,18 @@ value:
 Example:
 
 ```python
-lnm.futures_update_position({
-    'pid': 'b87eef8a-52ab-2fea-1adc-c41fba870b0f',
+lnm.futures_update_trade({
+    'id': 'b87eef8a-52ab-2fea-1adc-c41fba870b0f',
     'type': 'stoploss',
     'value': 13290.5
   })
 ```
 
-[`PUT /futures`](https://docs.lnmarkets.com/api/v1/#update) documentation for more details.
+[`PUT /futures`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
-### futures_bid_offer_history
+### futures_get_price
 
-Get bid and offer data over time.
+Get Futures price data over time.
 
 ```yml
 from:
@@ -424,14 +439,14 @@ limit: Integer
 Example:
 
 ```python
-lnm.futures_bid_offer_history({
+lnm.futures_price({
     'limit': 20
   })
 ```
 
-[`GET /futures/history/bid-offer`](https://docs.lnmarkets.com/api/v1/#futures-bid-and-offer-history) documentation for more details.
+[`GET /futures/history/price`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
-### futures_fixing_history
+### futures_fixing
 
 Get fixing data history.
 
@@ -453,14 +468,14 @@ limit:
 Example:
 
 ```python
-lnm.futures_fixing_history({
+lnm.futures_fixing({
     'limit': 20
   })
 ```
 
-[`GET /futures/history/fixing`](https://docs.lnmarkets.com/api/v1/#futures-fixing-history) documentation for more details.
+[`GET /futures/history/fixing`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
-### futures_index_history
+### futures_index
 
 Get index history data.
 
@@ -482,29 +497,12 @@ limit:
 Example:
 
 ```python
-lnm.futures_index_history({
+lnm.futures_index({
     'limit': 20
   })
 ```
 
-[`GET /futures/history/index`](https://docs.lnmarkets.com/api/v1/#futures-index-history) documentation for more details.
-
-
-### futures_get_configuration
-
-Get the configuration related to futures trading on the platform.
-
-```
-# No parameters
-```
-
-Example:
-
-```python
-lnm.futures_get_configuration()
-```
-
-[`GET /futures/instrument`](https://docs.lnmarkets.com/api/v1/#tag/Futures/paths/~1futures~1instrument/get) documentation for more details.
+[`GET /futures/history/index`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
 ### futures_get_ticker
 
@@ -520,27 +518,11 @@ Example:
 lnm.futures_get_ticker()
 ```
 
-[`GET /futures/ticker`](https://docs.lnmarkets.com/api/v1/#tag/Futures/paths/~1futures~1ticker/get) documentation for more details.
+[`GET /futures/ticker`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
-### options_get_expiries
+### futures_get_leaderboard
 
-Get the options expiries.
-
-```
-# No parameters
-```
-
-Example:
-
-```python
-lnm.options_get_expiries()
-```
-
-[`GET /options/instrument/expiry`](https://docs.lnmarkets.com/api/v1/#tag/Options/paths/~1options~1instrument~1expiry/get) documentation for more details.
-
-### options_get_configuration
-
-Get the options configuration.
+Queries the 10 users with the biggest positive PL on a daily, weekly, monthly and all-time basis.
 
 ```
 # No parameters
@@ -549,12 +531,65 @@ Get the options configuration.
 Example:
 
 ```python
-lnm.options_get_configuration()
+lnm.futures_get_leaderboard()
 ```
 
-[`GET /options/instrument`](https://docs.lnmarkets.com/api/v1/#tag/Options/paths/~1options~1instrument~1expiry/get) documentation for more details.
+[`GET /futures/leaderboard`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
-### options_close_all_positions
+### futures_get_market
+
+Get the futures market details.
+
+```
+# No parameters
+```
+
+Example:
+
+```python
+lnm.futures_get_market()
+```
+
+[`GET /futures/market`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+
+### options_get_instruments
+
+Get the options instruments list.
+
+```
+# No parameters
+```
+
+Example:
+
+```python
+lnm.options_get_instruments()
+```
+
+[`GET /options/instruments`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+
+### options_get_instrument
+
+Get a specific option instrument detail.
+
+```yml
+instrument_name:
+  type: String
+  required: true
+```
+
+Example:
+
+```python
+lnm.options_get_instrument({
+    'instrument_name': 'BTC.2024-01-05.43000.C'
+  })
+```
+
+
+[`GET /options/instrument`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+
+### options_close_all
 
 Close all of the user option trades, the PL will be calculated against the current bid or offer depending on the type of the options.
 
@@ -565,12 +600,12 @@ Close all of the user option trades, the PL will be calculated against the curre
 Example:
 
 ```python
-lnm.options_close_all_positions()
+lnm.options_close_all()
 ```
 
-[`DELETE /options/vanilla/all`](https://docs.lnmarkets.com/api/v1/#tag/Options/paths/~1options~1vanilla~1all/delete) documentation for more details.
+[`DELETE /options/close-all`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
-### options_close_position
+### options_close
 
 Close the user option trade, the PL will be calculated against the current bid or offer depending on the type of the option.
 
@@ -583,16 +618,16 @@ id:
 Example:
 
 ```python
-lnm.options_close_position({
+lnm.options_close({
     'id': 'a61faebc-7cc9-47e4-a22d-9d3e95c98322'
   })
 ```
 
-[`DELETE /options/vanilla`](https://docs.lnmarkets.com/api/v1/#tag/Options/paths/~1options~1vanilla/delete) documentation for more details.
+[`DELETE /options`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
-### options_get_positions
+### options_get_trades
 
-Get user's vanilla options trades.
+Get user's options trades.
 
 ```yaml
 status:
@@ -617,15 +652,15 @@ limit:
 Example:
 
 ```python
-  lnm.options_get_positions({
+  lnm.options_get_trades({
     limit: 25,
     status: 'closed'
   })
 ```
 
-[`GET /options/vanilla`](https://docs.lnmarkets.com/api/v1/#tag/Options/paths/~1options~1vanilla/get) documentation for more details.
+[`GET /options`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
-### options_new_position
+### options_new_trade
 
 Create a new options trade
 
@@ -635,16 +670,7 @@ side:
   enum: ['b']
   required: true
 
-type:
-  type: String
-  enum: ['c', 'p']
-  required: true
-
 quantity:
-  type: Integer
-  required: true
-
-strike:
   type: Integer
   required: true
 
@@ -652,20 +678,27 @@ settlement:
   type: String
   enum: ['physical', 'cash']
   required: true
+
+instrument_name:
+  type: String
+  required: true
+
 ```
 
 Example:
 
 ```python
-  lnm.options_new_position({
-    limit: 25,
-    status: 'closed'
+  lnm.options_new_trade({
+    'side': 'b',
+    'quantity': 10,
+    'settlement': 'physical',
+    'instrument_name': 'BTC.2024-01-05.43000.C'
   })
 ```
 
-[`POST /options/vanilla`](https://docs.lnmarkets.com/api/v1) documentation for more details.
+[`POST /options`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
-### options_update_position
+### options_update_trade
 
 Allows user to update settlement parameter in running option trade.
 
@@ -683,13 +716,13 @@ settlement:
 Example:
 
 ```python
-lnm.options_update_position({
-    'pid': 'a2ca6172-1078-463d-ae3f-8733f36a9b0e',
+lnm.options_update_trade({
+    'id': 'a2ca6172-1078-463d-ae3f-8733f36a9b0e',
     'settlement': 'physical'
   })
 ```
 
-[`PUT /options/vanilla`](https://docs.lnmarkets.com/api/v1/#tag/Options/paths/~1options~1vanilla/put) documentation for more details.
+[`PUT /options`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
 #### options_get_volatility
 
@@ -709,63 +742,11 @@ lnm.options_get_volatility({
   })
 ```
 
-[`GET /options/volatility`](https://docs.lnmarkets.com/api/v1/#tag/Options/paths/~1options~1volatility/get) documentation for more details.
+[`GET /options/volatility`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
-### deposit_history
+#### options_get_market
 
-Retrieve deposit history for this user.
-
-```yml
-from:
-  type: Integer
-  required: false
-
-to:
-  type: Integer
-  required: false
-
-limit:
-  type: Integer
-  required: false
-```
-
-Example:
-
-```python
-lnm.deposit_history({
-    'limit': 30
-  })
-```
-
-[`GET /user/deposit`](https://docs.lnmarkets.com/api/v1/#deposit) documentation for more details.
-
-### deposit
-
-Add funds to your LN Markets balance.
-
-```yml
-amount:
-  type: Integer
-  required: true
-unit:
-  type: String
-  required: false
-  default: 'sat'
-```
-
-Example:
-
-```python
-lnm.deposit({
-    'amount': 25000
-  })
-```
-
-[`POST /user/deposit`](https://docs.lnmarkets.com/api/v1/#deposit) documentation for more details.
-
-### get_user
-
-Retrieve user informations.
+Get the options market details.
 
 ```
 # No parameters
@@ -774,145 +755,45 @@ Retrieve user informations.
 Example:
 
 ```python
-lnm.get_user()
-
-[`GET /user`](https://docs.lnmarkets.com/api/v1/#informations) documentation for more details.
-
-### update_user
-
-Modifies account parameters.
-
-```yml
-show_leaderboard:
-  type: boolean
-  required: false
-use_taproot_addresses:
-  type: boolean
-  required: false
-username:
-  type: string
-  required: false
-auto_withdraw_enabled:
-  type: boolean
-  required: false
-auto_withdraw_lightning_address:
-  type: string
-  required: false
-nostr_pubkey
-  type: string
-  required: false
+lnm.options_get_market()
 ```
 
-Example:
+[`GET /options/market`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
-```python
-lnm.update_user({
-    'show_leaderboard': true,
-    'username': 'crypto-king',
-    'nostr_pubkey': 'bfef3e7ac61fa5450f80f346579234cbb06891e910d1a208b91bf0fd40ab3cc6'
-  })
-```
+### get_swaps
 
-[`PUT /user`](https://docs.lnmarkets.com/api/v1/#tag/User/paths/~1user/put) documentation for more details.
-
-### get_notifications
-
-Get notifications for a user
-
-```
-# No parameters
-```
-
-Example:
-
-```python
-lnm.get_notifications()
-```
-
-[`GET /user/notifications`](https://docs.lnmarkets.com/api/v1/#tag/User/paths/~1user~1notifications/get) documentation for more details.
-
-### mark_notifications_read
-
-Mark notification as read
-
-```yml
-ids:
-  type: 	
-  array of strings 
-  required: true
-```
-
-Example:
-
-```python
-lnm.mark_notifications_read({"ids": 
-    ['497f6eca-6276-4993-bfeb-53cbbbba6f08']
-})
-```
-
-[`PUT /user/notifications`](https://docs.lnmarkets.com/api/v1/#tag/User/paths/~1user~1notifications/put) documentation for more details.
-
-### withdraw_history
-
-Retrieve user withdraw history.
+Get swap history
 
 ```yml
 from:
   type: Integer
   required: false
-
+  
 to:
   type: Integer
   required: false
-
+  
 limit:
   type: Integer
-  required: false
+  required: False
+
 ```
 
 Example:
 
 ```python
-lnm.withdraw_history({
-   'limit': 25
+  lnm.get_swaps({
+    'from': 1669980001000,
+    'to': '1669990201000',
+    'limit': 100
   })
 ```
 
-[`GET /user/withdraw`](https://docs.lnmarkets.com/api/v1/#withdraw) documentation for more details.
-
-### withdraw
-
-Move funds from LN Markets to your wallet via BOLT11 invoice.
-
-```yml
-amount:
-  type: Integer
-  required: true
-
-unit:
-  type: String
-  required: false
-  default: 'sat'
-
-invoice:
-  type: String
-  required: true
-```
-
-Example:
-
-```python
-lnm.withdraw({
-    'amount': 1000,
-    'invoice': 'lntb100u1p0jr0ykpp5ldx3un8ym6z0uwjxd083mp2rcr04d2dv0fkx729ajs62pq9pfjqqdql23jhxapdwa5hg6rywfshwttjda6hgegcqzpgxq92fjuqsp5m6q0fzynu2qr624mzjc285duurhccmkfg94mcdctc0p9s7qkrq8q9qy9qsqp862cjznpey5r76e7amhlpmhwn2c7xvke59srhv0xf75m4ksjm4hzn8y9xy0zs5ec6gxmsr8gj4q23w8ped32llscjcneyjz2afeapqpu4gamz'
-  })
-```
-
-[`POST /user/withdraw`](https://docs.lnmarkets.com/api/v1/#withdraw-via-invoice) documentation for more details.
+[`GET /swap`](https://docs.lnmarkets.com/api/v2) documentation for more details.
 
 ### swap
 
-Swap betweem sats and synthetic assets
+Swap betweem sats and synthetic USD
 
 ```yml
 in_asset:
@@ -945,116 +826,4 @@ Example:
   })
 ```
 
-[`POST /swap`](https://docs.lnmarkets.com/api/v1/#tag/Swap/paths/~1swap/post) documentation for more details.
-
-### swap_history
-
-Get swap history
-
-```yml
-from:
-  type: Integer
-  required: false
-  
-to:
-  type: Integer
-  required: false
-  
-limit:
-  type: Integer
-  required: False
-
-```
-
-Example:
-
-```python
-  lnm.swap_history({
-    'from': 1669980001000,
-    'to': '1669990201000',
-    'limit': 100
-  })
-```
-
-[`GET /swap_history`](https://docs.lnmarkets.com/api/v1/#tag/Swap/paths/~1swap/get) documentation for more details.
-
-#### app_configuration
-
-Retrieves the configuration of LN Markets
-
-```
-# No parameters
-```
-
-Example:
-
-```python
-lnm.app_configuration()
-```
-
-[`GET /app/configuration`](https://docs.lnmarkets.com/api/v1/#tag/App/paths/~1app~1configuration/get) documentation for more details.
-
-#### app_node
-
-Show informations about LN Markets lightning node.
-
-```
-# No parameters
-```
-
-Example:
-
-```python
-lnm.app_node()
-```
-
-[`GET /app/node`](https://docs.lnmarkets.com/api/v1/#tag/App/paths/~1app~1node/get) documentation for more details.
-
-### get_leaderboard
-
-Queries the 10 users with the biggest positive PL.
-
-```
-# No parameters
-```
-
-Example:
-
-```python
-lnm.get_leaderboard()
-```
-
-[`GET /futures/leaderboard`](https://docs.lnmarkets.com/api/v1/#leaderboard) documentation for more details.
-
-### get_oracle
-
-Useful for oracles
-
-```yml
-from:
-  type: Integer
-  required: false
-  
-to:
-  type: Integer
-  required: false
-  
-limit:
-  type: Integer
-  required: False
-
-```
-
-Example:
-
-```python
-  lnm.get_oracle({
-    'from': 1669980001000,
-    'to': '1669990201000',
-    'limit': 100
-  })
-```
-
-[`GET /oracle/index`](https://docs.lnmarkets.com/api/v1/#tag/Oracle) documentation for more details.
-
-
+[`POST /swap`](https://docs.lnmarkets.com/api/v2) documentation for more details.

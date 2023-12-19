@@ -20,7 +20,7 @@ class LNMarketsWebsocket:
         self.secret = options.get('secret', os.getenv('LNMARKETS_API_SECRET'))
         self.passphrase = options.get('passphrase', os.getenv('LNMARKETS_API_PASSPHRASE'))
         self.network = options.get('network', os.getenv('LNMARKETS_API_NETWORK', 'mainnet'))
-        self.version = options.get('version', os.getenv('LNMARKETS_API_VERSION', 'v1'))
+        self.version = options.get('version', os.getenv('LNMARKETS_API_VERSION', 'v2'))
         self.hostname = get_hostname(self.network)
         self.ws = None
 
@@ -47,7 +47,7 @@ class LNMarketsWebsocket:
     def subscribe(self, params):
         payload = {
             "jsonrpc": "2.0",
-            "method": "subscribe",
+            "method": "v1/public/subscribe",
             "id": secrets.token_bytes(4).hex(),
             "params": params
         }

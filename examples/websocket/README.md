@@ -22,7 +22,7 @@ Here is the list of the function you might want to modify:
 
 > By default, this event will only print the received error.
 
-For example if you want to make your websocket to subscribe to `futures/market/bid-offer` you'll do something like...
+For example if you want to make your websocket to subscribe to `'futures:btc_usd:last-price' and `'futures:btc_usd:index' you'll do something like...
 
 ```python
 class LNMarketsWebsocketCustom(LNMarketsWebsocket):
@@ -31,7 +31,10 @@ class LNMarketsWebsocketCustom(LNMarketsWebsocket):
     
     def on_open(self, ws):
         print("Opened connection")
-        self.subscribe(["futures/market/bid-offer"])
+        self.subscribe([
+        'futures:btc_usd:last-price',
+        'futures:btc_usd:index'
+    ])
 
 options = {
   'key': 'your_api_key', 
