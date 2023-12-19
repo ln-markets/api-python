@@ -50,13 +50,15 @@ lnm.connect()
 
 You can subscribe to LNM Markets public event such as futures last price ('futures:btc_usd:last-price') and index ('futures:btc_usd:index').
 
-## REST API
+## REST API Authentication
 
-### Configuration
+### Using API key
 
 Use the LNMarketsRest and your key / passphrase to instanciate a new api connector: 
 
 ```python
+from lnmarkets import rest
+
 options = {'key': 'your_api_key', 
            'secret': 'your_api_secret', 
            'passphrase': 'your_api_passphrase',
@@ -66,6 +68,36 @@ lnm = rest.LNMarketsRest(**options)
 
 lnm.futures_get_ticker()
 
+```
+
+### Using Mnemonic seed
+
+Use the LNMarketsRest with [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) mnemonic phrase
+to instanciate a new api connector: 
+
+```python
+from lnmarkets import rest
+
+mnemonic = 'struggle goddess action cheap endorse venue force tomato exercise cactus charge such'
+
+lnm = rest.LNMarketsRest(mnemonic=mnemonic)
+
+lnm.futures_get_ticker()
+
+```
+
+Mnemonic seed auth is a "hack" using the cookie used by LNM WebApp, so for avoid risk of stolen cookie, you should 
+logout, when your program stop running:
+
+```python
+lnm.logout()
+```
+The cookie have a lifetime (about 1 week), so if your program running for more than that time you might renew the 
+cookie before expiry date (note that it can also be a safety measure tu renew your cookie often to avoid 
+stolen cookies risk):
+
+```python
+lnm.renew_cookie()
 ```
 ## REST API
 
