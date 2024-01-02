@@ -201,7 +201,7 @@ Close all running trades for this user.
 Example:
 
 ```python
-lnm.futures_close_all_positions()
+lnm.futures_close_all()
 ```
 
 [`DELETE /futures/all/close`](https://docs.lnmarkets.com/api/v2) documentation for more details.
