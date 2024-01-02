@@ -171,13 +171,6 @@ class LNMarketsRest():
             response = self.session.request(method, ressource, data = json.dumps(params, separators=(',', ':')), headers = headers)
         else:
             return
-        
-        if format == 'json':
-            return response.json()
-        elif format is None:
-            return response
-        else:
-            return response.text
 
     def before_request_api(self, method, path, params, credentials):
         return self.request_api(method, path, params, credentials)
@@ -301,7 +294,7 @@ class LNMarketsRest():
         credentials = False
         params = {}
         
-        return self.before_request_api(method, path, params, credentials, format)
+        return self.before_request_api(method, path, params, credentials)
 
     
     def futures_get_trade(self, params):
@@ -521,7 +514,7 @@ class LNMarketsRest():
         credentials = True
         params = {}
         
-        return self.before_request_api(method, path, params, credentials, format)
+        return self.before_request_api(method, path, params, credentials)
     
     def mark_notifications_read(self):
         method = 'PUT'
