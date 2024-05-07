@@ -220,7 +220,7 @@ class LNMarketsRest():
         method = 'GET'
         trade_id = params.get('id')  
         path = f'/futures/trades/{trade_id}'
-        credentials = False
+        credentials = True
 
         return self.before_request_api(method, path, params, credentials)
 
@@ -436,7 +436,7 @@ class LNMarketsRest():
         return self.before_request_api(method, path, params, credentials)
     
     def mark_notifications_read(self):
-        method = 'PUT'
+        method = 'DELETE'
         path = '/user/notifications/all'
         credentials = True
         params = {}
