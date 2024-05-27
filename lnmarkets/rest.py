@@ -400,6 +400,13 @@ class LNMarketsRest():
         credentials = True
 
         return self.before_request_api(method, path, params, credentials)
+
+    def new_withdraw_usd(self, params):
+        method = 'POST'
+        path = '/user/withdraw/usd'
+        credentials = True
+
+        return self.before_request_api(method, path, params, credentials)
     
     def new_internal_transfer(self, params):
         method = 'POST'
