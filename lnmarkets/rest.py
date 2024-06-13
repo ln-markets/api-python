@@ -378,6 +378,13 @@ class LNMarketsRest():
         credentials = True
 
         return self.before_request_api(method, path, params, credentials)
+
+    def new_deposit_susd(self, params):
+        method = 'POST'
+        path = '/user/deposit/susd'
+        credentials = True
+
+        return self.before_request_api(method, path, params, credentials)
     
     def get_withdrawal(self, params):
         method = 'GET'
@@ -401,9 +408,9 @@ class LNMarketsRest():
 
         return self.before_request_api(method, path, params, credentials)
 
-    def new_withdraw_usd(self, params):
+    def new_withdraw_susd(self, params):
         method = 'POST'
-        path = '/user/withdraw/usd'
+        path = '/user/withdraw/susd'
         credentials = True
 
         return self.before_request_api(method, path, params, credentials)
