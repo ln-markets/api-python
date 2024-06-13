@@ -135,9 +135,11 @@ lnm.renew_cookie()
 - get_deposit
 - get_deposits
 - new_deposit
+- new_deposit_susd
 - get_withdrawal
 - get_withdrawals
 - new_withdraw
+- new_withdraw_susd
 - new_internal_transfer
 - get_oracle_index
 - get_oracle_last
