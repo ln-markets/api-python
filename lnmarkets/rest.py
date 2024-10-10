@@ -37,7 +37,10 @@ class LNMarketsRest():
         method = options.get('method')
         path = options.get('path')
         params = options.get('params')
-        opts = { 'headers': { 'Content-Type': 'application/json' } }
+        opts = { 'headers': {} }
+
+        if method != 'DELETE':
+            opts['headers']['Content-Type'] = 'application/json'
   
         if self.custom_headers:
           opts['headers'].update(**self.custom_headers)
