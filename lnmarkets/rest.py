@@ -15,7 +15,7 @@ def get_hostname(network):
     if hostname:
         return hostname
     elif network == 'testnet':
-        return 'api.testnet.lnmarkets.com'
+        return 'api.testnet4.lnmarkets.com'
     else:
         return 'api.lnmarkets.com'
 
