@@ -149,7 +149,7 @@ lnm.renew_cookie()
 - app_node
 
 
-[`See the API documentation`](https://docs.lnmarkets.com/api/v2) for more details.
+[`See the API documentation`](https://docs.lnmarkets.com/api) for more details.
 
 
 ### futures_add_margin
@@ -174,7 +174,7 @@ lnm.futures_add_margin({
   })
 ```
 
-[`POST /futures/add-margin`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`POST /futures/add-margin`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### futures_cancel_all
 
@@ -190,7 +190,7 @@ Example:
 lnm.futures_cancel_all()
 ```
 
-[`DELETE /futures/all/cancel`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`DELETE /futures/all/cancel`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### futures_close_all
 
@@ -206,7 +206,7 @@ Example:
 lnm.futures_close_all()
 ```
 
-[`DELETE /futures/all/close`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`DELETE /futures/all/close`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### futures_cancel
 
@@ -226,7 +226,7 @@ lnm.futures_cancel_position({
   })
 ```
 
-[`POST /futures/cancel`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`POST /futures/cancel`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### futures_cashin
 
@@ -250,7 +250,7 @@ lnm.futures_cashin({
   })
 ```
 
-[`POST /futures/cash-in`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`POST /futures/cash-in`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### futures_carry_fees
 
@@ -279,7 +279,7 @@ lnm.futures_carry_fees({
   })
 ```
 
-[`GET /futures/carry-fees`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`GET /futures/carry-fees`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### futures_close
 
@@ -299,7 +299,7 @@ lnm.futures_close({
   })
 ```
 
-[`DELETE /futures`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`DELETE /futures`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### futures_get_trades
 
@@ -334,7 +334,7 @@ lnm.futures_get_trades({
   })
 ```
 
-[`GET /futures`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`GET /futures`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### futures_new_trade
 
@@ -387,7 +387,7 @@ Example:
   })
 ```
 
-[`POST /futures`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`POST /futures`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### futures_update_trade
 
@@ -418,7 +418,7 @@ lnm.futures_update_trade({
   })
 ```
 
-[`PUT /futures`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`PUT /futures`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### futures_get_price
 
@@ -446,7 +446,7 @@ lnm.futures_price({
   })
 ```
 
-[`GET /futures/history/price`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`GET /futures/history/price`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### futures_fixing
 
@@ -475,7 +475,7 @@ lnm.futures_fixing({
   })
 ```
 
-[`GET /futures/history/fixing`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`GET /futures/history/fixing`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### futures_index
 
@@ -504,7 +504,7 @@ lnm.futures_index({
   })
 ```
 
-[`GET /futures/history/index`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`GET /futures/history/index`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### futures_get_ticker
 
@@ -520,7 +520,7 @@ Example:
 lnm.futures_get_ticker()
 ```
 
-[`GET /futures/ticker`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`GET /futures/ticker`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### futures_get_leaderboard
 
@@ -536,7 +536,7 @@ Example:
 lnm.futures_get_leaderboard()
 ```
 
-[`GET /futures/leaderboard`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`GET /futures/leaderboard`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### futures_get_market
 
@@ -552,7 +552,7 @@ Example:
 lnm.futures_get_market()
 ```
 
-[`GET /futures/market`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`GET /futures/market`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### options_get_instruments
 
@@ -568,7 +568,7 @@ Example:
 lnm.options_get_instruments()
 ```
 
-[`GET /options/instruments`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`GET /options/instruments`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### options_get_instrument
 
@@ -589,7 +589,7 @@ lnm.options_get_instrument({
 ```
 
 
-[`GET /options/instrument`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`GET /options/instrument`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### options_close_all
 
@@ -605,7 +605,7 @@ Example:
 lnm.options_close_all()
 ```
 
-[`DELETE /options/close-all`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`DELETE /options/close-all`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### options_close
 
@@ -625,7 +625,7 @@ lnm.options_close({
   })
 ```
 
-[`DELETE /options`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`DELETE /options`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### options_get_trades
 
@@ -660,7 +660,7 @@ Example:
   })
 ```
 
-[`GET /options`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`GET /options`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### options_new_trade
 
@@ -698,7 +698,7 @@ Example:
   })
 ```
 
-[`POST /options`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`POST /options`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### options_update_trade
 
@@ -724,7 +724,7 @@ lnm.options_update_trade({
   })
 ```
 
-[`PUT /options`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`PUT /options`](https://docs.lnmarkets.com/api) documentation for more details.
 
 #### options_get_volatility
 
@@ -744,7 +744,7 @@ lnm.options_get_volatility({
   })
 ```
 
-[`GET /options/volatility`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`GET /options/volatility`](https://docs.lnmarkets.com/api) documentation for more details.
 
 #### options_get_market
 
@@ -760,7 +760,7 @@ Example:
 lnm.options_get_market()
 ```
 
-[`GET /options/market`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`GET /options/market`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### get_swaps
 
@@ -791,7 +791,7 @@ Example:
   })
 ```
 
-[`GET /swap`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`GET /swap`](https://docs.lnmarkets.com/api) documentation for more details.
 
 ### swap
 
@@ -828,4 +828,4 @@ Example:
   })
 ```
 
-[`POST /swap`](https://docs.lnmarkets.com/api/v2) documentation for more details.
+[`POST /swap`](https://docs.lnmarkets.com/api) documentation for more details.
