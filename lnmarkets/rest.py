@@ -206,7 +206,7 @@ class LNMarketsRest():
     def futures_get_price(self, params):
         method = 'GET'
         path = '/futures/history/price'
-        credentials = True
+        credentials = False
 
         return self.before_request_api(method, path, params, credentials)
     
