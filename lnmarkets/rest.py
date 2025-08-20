@@ -363,7 +363,7 @@ class LNMarketsRest():
     def get_deposit(self, params):
         method = 'GET'
         deposit_id = params.get('id')  
-        path = f'/user/deposits/{deposit_id}'
+        path = f'/user/deposit/{deposit_id}'
         credentials = True
 
         return self.before_request_api(method, path, params, credentials)
